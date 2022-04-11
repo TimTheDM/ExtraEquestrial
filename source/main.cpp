@@ -6,7 +6,8 @@
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode(200, 200), "Extra Equestrial");
+    gameData::initializeData();
+    sf::RenderWindow window(sf::VideoMode(gameData::screenWidth, gameData::screenLength), "Extra Equestrial");
 
     while (window.isOpen())
     {
