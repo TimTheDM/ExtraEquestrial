@@ -2,6 +2,8 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
+#include "headers\gameData.h"
+
 int main()
 {
     sf::RenderWindow window(sf::VideoMode(200, 200), "Extra Equestrial");
@@ -16,7 +18,6 @@ int main()
         }
 
         window.clear();
-        window.draw(shape);
         window.display();
     }
 
