@@ -5,6 +5,7 @@ enum screenType {title, game, cutscene};
 
 class baseScreen {
     //base abstract class for a screen of the game, contains only undefined virtual members
+public:
     virtual screenType run() = 0;
 };
 

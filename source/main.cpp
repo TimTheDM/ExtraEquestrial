@@ -4,6 +4,7 @@
 
 #include "headers\gameData.h"
 #include "headers\baseScreen.h"
+#include "headers\titleScreen.h"
 
 void runGame(sf::RenderWindow*);
 
