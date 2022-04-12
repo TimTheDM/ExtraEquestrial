@@ -1,7 +1,7 @@
 #include "headers\gameData.h"
 
-const int INITIAL_WIDTH = 750;
-const int INITIAL_LENGTH = 500;
+const int INITIAL_WIDTH = 480;
+const int INITIAL_LENGTH = 212;
 const int STARTING_LIVES = 3;
 
 int gameData::screenWidth = 0;
