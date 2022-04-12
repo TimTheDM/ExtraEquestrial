@@ -18,4 +18,4 @@ public:
     ~SpriteSheet();
 };
 
-#endif SPRITE_SHEET_H 
+#endif //SPRITE_SHEET_H 
