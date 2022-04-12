@@ -47,6 +47,8 @@ void runGame(sf::RenderWindow* window) {
 
 baseScreen* switchScreen(baseScreen* currentScreen,screenType screenToSwitch) {
     //constructs a new screen object, deletes the old one currentScreen is pointing to. Returns reference to new screen object
-    if (screenToSwitch = title) return new titleScreen();
+    delete currentScreen;
+    if (screenToSwitch = cutscene) return new cutsceneScreen();
+    else if (screenToSwitch = game) return new gameScreen();
     else return new titleScreen();
 }
