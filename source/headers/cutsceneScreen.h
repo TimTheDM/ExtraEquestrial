@@ -1,9 +1,10 @@
 #ifndef CUTSCENE_SCREEN_H
 #define CUTSCENE_SCREEN_H
 
+#include <SFML/Graphics.hpp>
 #include "baseScreen.h"
 
-class cutsceneScreen {
+class cutsceneScreen : public baseScreen {
 
 public:
     screenType run();
