@@ -11,7 +11,7 @@ class enemy {
     std::vector<Path>* path;
     std::string type;
 public:
-    enemy(int, int, const std::string&, sf::Vector2f&);
+    enemy(int, int, const std::string&, sf::Vector2f*);
     ~enemy();
 }
 
