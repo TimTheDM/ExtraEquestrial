@@ -18,3 +18,7 @@ void titleScreen::draw(sf::RenderWindow*) {
 titleScreen::titleScreen() {
     //constructor for title screen object.
 }
+
+titleScreen::~titleScreen() {
+    //destructor for title screen object.
+}

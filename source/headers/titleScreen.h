@@ -10,6 +10,7 @@ public:
     screenType run();
     void draw(sf::RenderWindow*);
     titleScreen();
+    ~titleScreen();
 };
 
 #endif //titleScreen.h
