@@ -4,6 +4,7 @@
 const float PI = 3.141592;
 
 class path {
+    //stores data for path an enemy takes by angle, time spent on path, and mutation of that angle per game tick
     float x_offset;
     float y_offset;
     float angle;
