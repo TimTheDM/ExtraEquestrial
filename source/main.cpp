@@ -3,6 +3,7 @@
 #include <SFML/Audio.hpp>
 
 #include "headers\gameData.h"
+#include "headers\assets.h"
 #include "headers\baseScreen.h"
 #include "headers\titleScreen.h"
 #include "headers\gameScreen.h"
@@ -14,7 +15,9 @@ baseScreen* switchScreen(baseScreen*, screenType);
 int main()
 {
     gameData::initializeData();
+    assets::loadAssets();
     sf::RenderWindow window(sf::VideoMode(gameData::screenWidth, gameData::screenLength), "Extra Equestrial");
+    window.setSize(sf::Vector2u(gameData::screenWidth * 3, gameData::screenLength * 3));
 
     runGame(&window);
 
