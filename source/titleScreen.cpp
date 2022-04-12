@@ -6,11 +6,13 @@
 #include "headers\baseScreen.h"
 #include "headers\titleScreen.h"
 
-screenType titleScreen::run(sf::RenderWindow* window) {
+screenType titleScreen::run() {
     //runs a single game loop of the title screen
-    window->clear();
-    window->display();
     return title;
+}
+
+void titleScreen::draw(sf::RenderWindow*) {
+    //draws titleScreen
 }
 
 titleScreen::titleScreen() {

@@ -7,7 +7,8 @@
 class titleScreen: public baseScreen {
 
 public:
-    screenType run(sf::RenderWindow*);
+    screenType run();
+    void draw(sf::RenderWindow*);
     titleScreen();
 };
 
