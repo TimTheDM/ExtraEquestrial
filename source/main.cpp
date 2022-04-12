@@ -5,6 +5,8 @@
 #include "headers\gameData.h"
 #include "headers\baseScreen.h"
 #include "headers\titleScreen.h"
+#include "headers\gameScreen.h"
+#include "headers\cutsceneScreen.h"
 
 void runGame(sf::RenderWindow*);
 baseScreen* switchScreen(baseScreen*, screenType);
