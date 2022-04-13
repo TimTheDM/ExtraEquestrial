@@ -1,8 +1,19 @@
 #include <SFML/Graphics.hpp>
 #include "headers\SpriteSheet.h"
+#include "headers\assets.h"
 
 SpriteSheet::SpriteSheet(const sf::Texture& baseTexture, int offset) {
     //constructor for spritesheet
+    this->baseSprite = new sf::Sprite(baseTexture);
+    this->baseTexture = &baseTexture;
+    this->xOffset = offset;
+    sf::Vector2u size = baseTexture.getSize();
+    this->height = size.y;
+    this->width = size.x;
+    this->maxPos = size.x / offset;
+    this->curPos = 0;
+    this->baseSprite->setTextureRect(sf::Rect<int>(curPos * this->xOffset, this->height, this->width / this->maxPos, this->height));
+
 }
 
 SpriteSheet::~SpriteSheet() {

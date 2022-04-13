@@ -7,10 +7,12 @@ class SpriteSheet {
 //class for storing data on a sprite that must cycle through a vertically aligned sprite sheet
     int maxPos;
     int curPos;
-    int xOffSet;
-    sf::Sprite* baseSprite;
-    sf::Texture* baseTexture;
+    int xOffset;
+    int height;
+    int width;
+    const sf::Texture* baseTexture;
 public:
+    sf::Sprite* baseSprite;
     int getPos();
     sf::Sprite* getSprite();
     void nextPos();
