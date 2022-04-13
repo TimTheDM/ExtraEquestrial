@@ -19,8 +19,16 @@ void TitleScreen::draw(sf::RenderWindow*) {
 
 TitleScreen::TitleScreen() {
     //constructor for title screen object.
+    //this->cursorSprite = new Sf::Sprite(cursor texture);
+    this->titleTheme = &assets::titleMusic;
+    this->background = new SpriteSheet(assets::titleBackground, 8);
+    this->cursorPos = 0;
 }
 
 TitleScreen::~TitleScreen() {
     //destructor for title screen object.
+}
+
+void TitleScreen::processEvent(const sf::Event&) {
+    //processes events, and runs the proper checks for them
 }
