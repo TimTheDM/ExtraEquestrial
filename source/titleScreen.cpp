@@ -8,13 +8,18 @@
 #include "headers\assets.h"
 #include "headers\SpriteSheet.h"
 
+const sf::Vector2f CURSOR_START(150, 100);
+
 screenType TitleScreen::run() {
     //runs a single game loop of the title screen
     return title;
 }
 
-void TitleScreen::draw(sf::RenderWindow*) {
+void TitleScreen::draw(sf::RenderWindow* window) {
     //draws titleScreen
+    window->draw( *(this->background->getSprite()) );
+    //window->draw(this->cursor);
+
 }
 
 TitleScreen::TitleScreen() {
@@ -23,10 +28,13 @@ TitleScreen::TitleScreen() {
     this->titleTheme = &assets::titleMusic;
     this->background = new SpriteSheet(assets::titleBackground, 8);
     this->cursorPos = 0;
+    //this->cursorSprite.setPosition(CURSOR_START);
 }
 
 TitleScreen::~TitleScreen() {
     //destructor for title screen object.
+    delete this->background;
+    delete this->cursor;
 }
 
 void TitleScreen::processEvent(const sf::Event&) {
