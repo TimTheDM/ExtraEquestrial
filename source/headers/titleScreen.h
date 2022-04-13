@@ -16,7 +16,7 @@ class TitleScreen : public baseScreen {
 public:
     screenType run(sf::RenderWindow*);
     void draw(sf::RenderWindow*);
-    void processEvent(const sf::Event&);
+    screenType processEvent(const sf::Event&);
     TitleScreen();
     ~TitleScreen();
 };

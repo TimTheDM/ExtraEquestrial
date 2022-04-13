@@ -8,11 +8,17 @@
 
 screenType gameScreen::run(sf::RenderWindow* window) {
     //runs a single game loop of the game screen
+    sf::Event event;
+    while (window->pollEvent(event)) {
+        if (event.type == sf::Event::Closed) gameData::endProgram = true;
+    }
     return game;
 }
 
-void gameScreen::draw(sf::RenderWindow*) {
+void gameScreen::draw(sf::RenderWindow* window) {
     //draws gameScreen
+    window->clear();
+    window->display();
 }
 
 gameScreen::gameScreen() {
