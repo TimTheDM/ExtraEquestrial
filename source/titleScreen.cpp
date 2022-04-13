@@ -12,22 +12,27 @@ const sf::Vector2f CURSOR_START(150, 100);
 
 screenType TitleScreen::run() {
     //runs a single game loop of the title screen
+    this->background->nextPos();
     return title;
 }
 
 void TitleScreen::draw(sf::RenderWindow* window) {
     //draws titleScreen
+    window->clear();
     window->draw( *(this->background->getSprite()) );
-    //window->draw(this->cursor);
+    //window->draw(*this->cursor);
+    window->display();
 
 }
 
 TitleScreen::TitleScreen() {
     //constructor for title screen object.
-    //this->cursorSprite = new Sf::Sprite(cursor texture);
+    this->cursor = new sf::Sprite(assets::titleBackground);
     this->titleTheme = &assets::titleMusic;
     this->background = new SpriteSheet(assets::titleBackground, 8);
     this->cursorPos = 0;
+    this->titleTheme->setLoop(true);
+    this->titleTheme->play();
     //this->cursorSprite.setPosition(CURSOR_START);
 }
 
