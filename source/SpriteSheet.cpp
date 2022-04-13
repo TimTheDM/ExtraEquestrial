@@ -23,6 +23,7 @@ SpriteSheet::~SpriteSheet() {
 
 int SpriteSheet::getPos() {
     //getter for current position of sprite sheet.
+    return this->curPos;
 }
 
 sf::Sprite* SpriteSheet::getSprite() {
