@@ -33,4 +33,7 @@ sf::Sprite* SpriteSheet::getSprite() {
 
 void SpriteSheet::nextPos() {
     //function which sets the sprite to the next position
+    this->curPos++;
+    if (this->curPos >= this->maxPos) this->curPos = 0;
+    this->baseSprite->setTextureRect(sf::Rect<int>(curPos * this->xOffset, this->height, this->width / this->maxPos, this->height));
 }
