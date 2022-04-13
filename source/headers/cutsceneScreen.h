@@ -3,6 +3,7 @@
 
 #include <SFML/Graphics.hpp>
 #include "baseScreen.h"
+#include "SpriteSheet.h"
 
 class cutsceneScreen : public baseScreen {
 
