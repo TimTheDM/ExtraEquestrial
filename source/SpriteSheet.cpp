@@ -3,18 +3,19 @@
 #include "headers\assets.h"
 #include <iostream>
 
-SpriteSheet::SpriteSheet(const sf::Texture& baseTexture, int offset) {
+SpriteSheet::SpriteSheet(const sf::Texture& baseTexture, int offset, int ticksBetween) {
     //constructor for spritesheet
     this->baseSprite = new sf::Sprite(baseTexture);
     this->baseTexture = &baseTexture;
     sf::Vector2u size = baseTexture.getSize();
+    this->tickCount = 0;
+    this->ticksBetween = ticksBetween;
     this->xOffset = size.x / offset;
     this->height = size.y;
     this->width = size.x;
     this->maxPos = offset;
     this->curPos = 0;
     this->baseSprite->setTextureRect(sf::Rect<int>(curPos * this->xOffset, 0, this->width / this->maxPos, this->height));
-
 }
 
 SpriteSheet::~SpriteSheet() {
@@ -34,7 +35,10 @@ sf::Sprite* SpriteSheet::getSprite() {
 
 void SpriteSheet::nextPos() {
     //function which sets the sprite to the next position
-    this->curPos++;
-    if (this->curPos >= this->maxPos) this->curPos = 0;
-    this->baseSprite->setTextureRect(sf::Rect<int>(curPos * this->xOffset, 0, this->width / this->maxPos, this->height));
+    if (this->tickCount >= this->ticksBetween) {
+        this->curPos++;
+        if (this->curPos >= this->maxPos) this->curPos = 0;
+        this->baseSprite->setTextureRect(sf::Rect<int>(curPos * this->xOffset, 0, this->width / this->maxPos, this->height));
+        this->tickCount = 0;
+    } else this->tickCount++;
 }
