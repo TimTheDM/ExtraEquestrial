@@ -6,7 +6,7 @@
 #include "headers\baseScreen.h"
 #include "headers\gameScreen.h"
 
-screenType gameScreen::run() {
+screenType gameScreen::run(sf::RenderWindow* window) {
     //runs a single game loop of the game screen
     return game;
 }

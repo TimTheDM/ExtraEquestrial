@@ -35,7 +35,7 @@ void runGame(sf::RenderWindow* window) {
     while (window->isOpen())
     {
         currentScreen->draw(window);
-        screenToSwitch = currentScreen->run();
+        screenToSwitch = currentScreen->run(window);
 
         if (screenToSwitch != currentScreenType) {
             currentScreen = switchScreen(currentScreen, screenToSwitch);

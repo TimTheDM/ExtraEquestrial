@@ -9,10 +9,12 @@
 class TitleScreen : public baseScreen {
     SpriteSheet* background;
     sf::Sprite* cursor;
+    sf::Sprite* play;
+    sf::Sprite* exit;
     sf::Music* titleTheme;
     int cursorPos;
 public:
-    screenType run();
+    screenType run(sf::RenderWindow*);
     void draw(sf::RenderWindow*);
     void processEvent(const sf::Event&);
     TitleScreen();
