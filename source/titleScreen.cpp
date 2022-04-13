@@ -4,21 +4,23 @@
 
 #include "headers\gameData.h"
 #include "headers\baseScreen.h"
-#include "headers\titleScreen.h"
+#include "headers\TitleScreen.h"
+#include "headers\assets.h"
+#include "headers\SpriteSheet.h"
 
-screenType titleScreen::run() {
+screenType TitleScreen::run() {
     //runs a single game loop of the title screen
     return title;
 }
 
-void titleScreen::draw(sf::RenderWindow*) {
+void TitleScreen::draw(sf::RenderWindow*) {
     //draws titleScreen
 }
 
-titleScreen::titleScreen() {
+TitleScreen::TitleScreen() {
     //constructor for title screen object.
 }
 
-titleScreen::~titleScreen() {
+TitleScreen::~TitleScreen() {
     //destructor for title screen object.
 }

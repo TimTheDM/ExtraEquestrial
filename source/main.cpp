@@ -27,7 +27,7 @@ int main()
 
 void runGame(sf::RenderWindow* window) {
     //runs game loop
-    baseScreen* currentScreen = new titleScreen();
+    baseScreen* currentScreen = new TitleScreen();
     screenType currentScreenType = title;
     screenType screenToSwitch;
 
@@ -54,5 +54,5 @@ baseScreen* switchScreen(baseScreen* currentScreen,screenType screenToSwitch) {
     delete currentScreen;
     if (screenToSwitch = cutscene) return new cutsceneScreen();
     else if (screenToSwitch = game) return new gameScreen();
-    else return new titleScreen();
+    else return new TitleScreen();
 }

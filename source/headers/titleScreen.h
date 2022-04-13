@@ -3,14 +3,20 @@
 
 #include <SFML/Graphics.hpp>
 #include "baseScreen.h"
+#include "assets.h"
+#include "SpriteSheet.h"
 
-class titleScreen: public baseScreen {
-
+class TitleScreen : public baseScreen {
+    SpriteSheet* background;
+    sf::Sprite* cursor;
+    sf::Music* titleTheme;
+    int cursorPos;
 public:
     screenType run();
     void draw(sf::RenderWindow*);
-    titleScreen();
-    ~titleScreen();
+    void processEvent(const sf::Event&);
+    TitleScreen();
+    ~TitleScreen();
 };
 
-#endif //titleScreen.h
+#endif //TITLE_SCREEN_H

@@ -7,10 +7,6 @@
 #include "SpriteSheet.h"
 
 class cutsceneScreen : public baseScreen {
-    SpriteSheet* background;
-    sf::Sprite* cursor;
-    sf::Music* titleTheme;
-    int cursorPos;
 public:
     screenType run();
     void draw(sf::RenderWindow*);
