@@ -34,19 +34,14 @@ void runGame(sf::RenderWindow* window) {
 
     while (window->isOpen())
     {
+        if (gameData::endProgram) window->close();
+
         currentScreen->draw(window);
         screenToSwitch = currentScreen->run(window);
 
         if (screenToSwitch != currentScreenType) {
             currentScreen = switchScreen(currentScreen, screenToSwitch);
             currentScreenType = screenToSwitch;
-        }
-
-        sf::Event event;
-        while (window->pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-                window->close();
         }
     }
 }

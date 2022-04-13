@@ -55,6 +55,14 @@ TitleScreen::~TitleScreen() {
     delete this->exit;
 }
 
-void TitleScreen::processEvent(const sf::Event&) {
+void TitleScreen::processEvent(const sf::Event& event) {
     //processes events, and runs the proper checks for them
+    if (event.type == sf::Event::Closed) gameData::endProgram = true;
+    if (event.type == sf::Event::KeyPressed) {
+        if (event.key.code == sf::Keyboard::Up || event.key.code == sf::Keyboard::Down) {
+            if (this->cursorPos == 0) this->cursorPos = 1;
+            else this->cursorPos = 0;
+            std::cout << "Cursor Position changed to: " << this->cursorPos << std::endl;
+        }
+    }
 }
