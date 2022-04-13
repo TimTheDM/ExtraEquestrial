@@ -5,6 +5,7 @@
 #include "headers\gameData.h"
 #include "headers\baseScreen.h"
 #include "headers\cutsceneScreen.h"
+#include "headers\assets.h"
 #include "headers\SpriteSheet.h"
 
 screenType cutsceneScreen::run() {
