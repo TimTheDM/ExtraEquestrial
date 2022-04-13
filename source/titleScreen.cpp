@@ -7,7 +7,8 @@
 #include "headers\assets.h"
 #include "headers\SpriteSheet.h"
 
-const sf::Vector2f CURSOR_START(150, 100);
+const int CURSOR_X_OFFSET = 9;
+const int CURSOR_Y_OFFSET = 24;
 
 screenType TitleScreen::run(sf::RenderWindow* window) {
     //runs a single game loop of the title screen
@@ -64,8 +65,13 @@ screenType TitleScreen::processEvent(const sf::Event& event) {
     if (event.type == sf::Event::Closed) gameData::endProgram = true;
     if (event.type == sf::Event::KeyPressed) {
         if (event.key.code == sf::Keyboard::Up || event.key.code == sf::Keyboard::Down) {
-            if (this->cursorPos == 0) this->cursorPos = 1;
-            else this->cursorPos = 0;
+            if (this->cursorPos == 0) {
+                this->cursorPos = 1;
+                this->cursor->move(CURSOR_X_OFFSET, CURSOR_Y_OFFSET);
+            } else {
+                this->cursorPos = 0;
+                this->cursor->move(-CURSOR_X_OFFSET, -CURSOR_Y_OFFSET);
+            }
         } else if (event.key.code == sf::Keyboard::Z) {
             if (this->cursorPos == 0) {
                 return game;
