@@ -27,7 +27,7 @@ void TitleScreen::draw(sf::RenderWindow* window) {
 
 TitleScreen::TitleScreen() {
     //constructor for title screen object.
-    this->cursor = new sf::Sprite(assets::titleBackground);
+    //this->cursor = new sf::Sprite(assets::cursor);
     this->titleTheme = &assets::titleMusic;
     this->background = new SpriteSheet(assets::titleBackground, 8, 5);
     this->cursorPos = 0;
