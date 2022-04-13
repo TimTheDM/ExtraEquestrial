@@ -28,6 +28,7 @@ int SpriteSheet::getPos() {
 
 sf::Sprite* SpriteSheet::getSprite() {
     //getter which retrieves sprite at its current position on the sheet
+    return this->baseSprite;
 }
 
 void SpriteSheet::nextPos() {
