@@ -7,7 +7,7 @@
 class gameScreen : public baseScreen {
 
 public:
-    screenType run();
+    screenType run(sf::RenderWindow*);
     void draw(sf::RenderWindow*);
     gameScreen();
     ~gameScreen();

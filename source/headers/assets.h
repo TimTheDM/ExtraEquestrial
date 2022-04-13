@@ -7,6 +7,9 @@
 struct assets {
     //container storing textures and music for use in the screens
     static sf::Texture titleBackground;
+    static sf::Texture playSymbol;
+    static sf::Texture exitSymbol;
+    static sf::Texture cursor;
     static sf::Music titleMusic;
     static bool loadAssets();
 };

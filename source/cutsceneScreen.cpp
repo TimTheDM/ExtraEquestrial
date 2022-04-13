@@ -6,7 +6,7 @@
 #include "headers\baseScreen.h"
 #include "headers\cutsceneScreen.h"
 
-screenType cutsceneScreen::run() {
+screenType cutsceneScreen::run(sf::RenderWindow* window) {
     //runs a single game loop of the cutscene screen
     return cutscene;
 }

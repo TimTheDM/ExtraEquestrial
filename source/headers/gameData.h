@@ -7,6 +7,7 @@ public:
     static int screenWidth;
     static int screenLength;
     static int lives;
+    static bool endProgram;
 
     //initializes the data, currently from constants defined in gameData.cpp
     static bool initializeData();

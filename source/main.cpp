@@ -16,8 +16,10 @@ int main()
 {
     gameData::initializeData();
     assets::loadAssets();
+
     sf::RenderWindow window(sf::VideoMode(gameData::screenWidth, gameData::screenLength), "Extra Equestrial");
     window.setSize(sf::Vector2u(gameData::screenWidth * 3, gameData::screenLength * 3));
+    window.setFramerateLimit(30);
 
     runGame(&window);
 
@@ -26,32 +28,29 @@ int main()
 
 void runGame(sf::RenderWindow* window) {
     //runs game loop
-    baseScreen* currentScreen = new titleScreen();
+    baseScreen* currentScreen = new TitleScreen();
     screenType currentScreenType = title;
     screenType screenToSwitch;
 
     while (window->isOpen())
     {
-        screenToSwitch = currentScreen->run();
+        if (gameData::endProgram) window->close();
+
+        currentScreen->draw(window);
+        screenToSwitch = currentScreen->run(window);
 
         if (screenToSwitch != currentScreenType) {
             currentScreen = switchScreen(currentScreen, screenToSwitch);
             currentScreenType = screenToSwitch;
-        }
-
-        sf::Event event;
-        while (window->pollEvent(event))
-        {
-            if (event.type == sf::Event::Closed)
-                window->close();
         }
     }
 }
 
 baseScreen* switchScreen(baseScreen* currentScreen,screenType screenToSwitch) {
     //constructs a new screen object, deletes the old one currentScreen is pointing to. Returns reference to new screen object
+    std::cout << "Guh?";
     delete currentScreen;
-    if (screenToSwitch = cutscene) return new cutsceneScreen();
-    else if (screenToSwitch = game) return new gameScreen();
-    else return new titleScreen();
+    if (screenToSwitch == cutscene) return new cutsceneScreen();
+    else if (screenToSwitch == game) return new gameScreen();
+    else return new TitleScreen();
 }
