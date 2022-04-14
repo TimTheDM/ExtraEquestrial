@@ -10,3 +10,12 @@ Path::Path(int time, float angle, float mutation) {
     this->x_offset = cos(angle);
     this->y_offset = -sin(angle);
 }
+
+void Path::incrementPath() {
+    if (this->mutation != 0.0) {
+        this->angle += this->mutation;
+        this->x_offset = cos(this->angle);
+        this->y_offset = -sin(this->angle);
+    }
+    this->timer++;
+}
