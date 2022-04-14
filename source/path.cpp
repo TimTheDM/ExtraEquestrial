@@ -19,3 +19,15 @@ void Path::incrementPath() {
     }
     this->timer++;
 }
+
+float Path::retrieve_x_offset() {
+    return this->x_offset;
+}
+
+float Path::retrieve_y_offset() {
+    return this->y_offset;
+}
+
+bool Path::isDone() {
+    return (this->timer >= this->time);
+}
