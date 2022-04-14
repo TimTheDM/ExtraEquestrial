@@ -5,14 +5,14 @@
 #include <vector>
 #include "Path.h"
 
-class enemy {
+class Enemy {
     //class that stores data for an enemy object
     sf::Texture* enemyTexture;
     std::vector<Path>* path;
     std::string type;
 public:
-    enemy(int, int, const std::string&, std::vector<Path>*);
-    ~enemy();
+    Enemy(int, int, const std::string&, std::vector<Path>*);
+    ~Enemy();
 };
 
 #endif //ENEMY_H
