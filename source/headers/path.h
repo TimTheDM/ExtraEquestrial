@@ -3,7 +3,7 @@
 
 const float PI = 3.141592;
 
-class path {
+class Path {
     //stores data for path an enemy takes by angle, time spent on path, and mutation of that angle per game tick
     float x_offset;
     float y_offset;
@@ -12,7 +12,7 @@ class path {
     int timer;
     int time;
 public: 
-    path(int, float, float);
+    Path(int, float, float);
 };
 
 #endif //PATH_H
