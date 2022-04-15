@@ -12,11 +12,14 @@ class Enemy {
     std::vector<Path>* path;
     std::string type;
     float speed;
+    int pathIndex;
     int rateOfFire;
     int ticksSinceFire;
 public:
     Enemy(int, int, const std::string&, std::vector<Path>*);
     ~Enemy();
+    void moveEnemy();
+    void tickDown();
 };
 
 #endif //ENEMY_H
