@@ -8,6 +8,7 @@ sf::Music assets::titleMusic;
 sf::Texture assets::playSymbol;
 sf::Texture assets::exitSymbol;
 sf::Texture assets::cursor;
+sf::Texture assets::testEnemy;
 
 bool assets::loadAssets() {
     bool assetsLoaded = true;
@@ -15,6 +16,7 @@ bool assets::loadAssets() {
     if (!assets::playSymbol.loadFromFile("sprites/Play_Symbol.png")) assetsLoaded = false;
     if (!assets::exitSymbol.loadFromFile("sprites/Exit_Symbol.png")) assetsLoaded = false;
     if (!assets::cursor.loadFromFile("sprites/cursor.png")) assetsLoaded = false;
+    if (!assets::testEnemy.loadFromFile("sprites/test_enemy.png")) assetsLoaded = false;
     if (!assets::titleMusic.openFromFile("music/Main_Menu.flac")) assetsLoaded = false;
     return assetsLoaded;
 }

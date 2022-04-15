@@ -10,6 +10,7 @@ struct assets {
     static sf::Texture playSymbol;
     static sf::Texture exitSymbol;
     static sf::Texture cursor;
+    static sf::Texture testEnemy;
     static sf::Music titleMusic;
     static bool loadAssets();
 };
