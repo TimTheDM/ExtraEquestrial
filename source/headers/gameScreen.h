@@ -4,11 +4,12 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include "baseScreen.h"
+#include "assets.h"
 #include "Enemy.h"
 
 class gameScreen : public baseScreen {
     std::vector<Enemy>* enemies;
-    sf::Sprite background;
+    sf::Sprite* background;
     //std::vector<Bullet>* bullets;
     //Player* player; 
 public:
@@ -20,6 +21,8 @@ public:
     void moveBullets();
     void movePlayer();
     void checkCollision();
+    void playerCollide();
+    void generateBullets();
     gameScreen();
     ~gameScreen();
 };

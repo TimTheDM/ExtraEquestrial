@@ -9,7 +9,7 @@ sf::Texture assets::playSymbol;
 sf::Texture assets::exitSymbol;
 sf::Texture assets::cursor;
 sf::Texture assets::testEnemy;
-sf::Texture assets::stageBackground
+sf::Texture assets::stageBackground;
 
 bool assets::loadAssets() {
     bool assetsLoaded = true;
