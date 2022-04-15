@@ -25,12 +25,16 @@ gameScreen::gameScreen() {
     //constructor for game screen object.
     this->enemies = new std::vector<Enemy>; //to be replaced by function calling level of enemies from gameData
     //this->bullets = new std::vector<Bullet>; uncomment when bullets are implemented
-    //this->Player = new Player(); uncomment when player is implemented
+    //this->player = new Player(); uncomment when player is implemented
     this->background = new sf::Sprite(assets::stageBackground);
 }
 
 gameScreen::~gameScreen() {
     //destructor for game screen object.
+    delete this->enemies;
+    delete this->background;
+    //delete this->bullets;
+    //delete this->player;
 }
 
 void gameScreen::processInput(sf::RenderWindow* window) {
@@ -61,5 +65,5 @@ void gameScreen::playerCollide() {
 }
 
 void gameScreen::generateBullets() {
-    //checks if any enemies need to generate shots
+    //checks if any enemies need to generate bullets, resets their bullet timers
 }
