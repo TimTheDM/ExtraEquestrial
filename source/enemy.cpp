@@ -17,13 +17,19 @@ Enemy::Enemy(int xpos, int ypos, const std::string& type, std::vector<Path>* pat
         this->rateOfFire = 50;
         this->sprite = new SpriteSheet(assets::testEnemy, 1, 1);
     }
- }
+}
 
- Enemy::~Enemy() {
+Enemy::~Enemy() {
     delete this->sprite;
     delete this->path;
- }
+}
 
- void Enemy::moveEnemy() {
+void Enemy::moveEnemy() {
     this->sprite->getSprite()->move(this->path->at(this->pathIndex).retrieve_x_offset(), this->path->at(this->pathIndex).retrieve_y_offset());
- }
+}
+
+void Enemy::pathTick() {
+    //moves down tick of current path, increments pathIndex if isDone of path returns true
+    this->path->at(this->pathIndex).incrementPath();
+    if (this->path->at(this->pathIndex).isDone()) this->pathIndex++;
+}

@@ -19,7 +19,7 @@ public:
     Enemy(int, int, const std::string&, std::vector<Path>*);
     ~Enemy();
     void moveEnemy();
-    void tickDown();
+    void pathTick();
 };
 
 #endif //ENEMY_H
