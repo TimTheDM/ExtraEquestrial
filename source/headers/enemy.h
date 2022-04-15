@@ -4,15 +4,22 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include "Path.h"
+#include "SpriteSheet.h"
 
-class enemy {
+class Enemy {
     //class that stores data for an enemy object
-    sf::Texture* enemyTexture;
+    SpriteSheet* sprite;
     std::vector<Path>* path;
     std::string type;
+    float speed;
+    int pathIndex;
+    int rateOfFire;
+    int ticksSinceFire;
 public:
-    enemy(int, int, const std::string&, std::vector<Path>*);
-    ~enemy();
+    Enemy(int, int, const std::string&, std::vector<Path>*);
+    ~Enemy();
+    void moveEnemy();
+    void pathTick();
 };
 
 #endif //ENEMY_H
