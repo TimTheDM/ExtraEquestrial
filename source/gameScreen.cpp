@@ -18,6 +18,7 @@ screenType gameScreen::run(sf::RenderWindow* window) {
 void gameScreen::draw(sf::RenderWindow* window) {
     //draws gameScreen
     window->clear();
+    window->draw(*this->background);
     window->display();
 }
 
