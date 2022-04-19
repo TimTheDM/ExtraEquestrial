@@ -9,10 +9,11 @@ class Player {
     //Class for holding player data
 public:
     SpriteSheet* playerSprite;
-    void movePlayer(float, float);
+    void movePlayer();
     float x_offset;
     float y_offset;
     Player();
+    ~Player();
 };
 
 #endif //PLAYER_H
