@@ -18,4 +18,5 @@ Player::~Player() {
 
 void Player::movePlayer() {
     //moves player by offsets
+    this->playerSprite->baseSprite->move(this->x_offset, this->y_offset);
 }
