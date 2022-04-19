@@ -46,6 +46,8 @@ void gameScreen::processInput(sf::RenderWindow* window) {
     while (window->pollEvent(event)) {
         if (event.type == sf::Event::Closed) gameData::endProgram = true;
     }
+
+    this->player->joystickShift();
 }
 
 void gameScreen::moveEnemies() {
