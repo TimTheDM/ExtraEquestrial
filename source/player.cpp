@@ -7,9 +7,10 @@
 
 Player::Player() {
     //constructor for player
-    this->playerSprite = new SpriteSheet(assets::playerSprite, 5, 5);
+    this->playerSprite = new SpriteSheet(assets::playerSprite, 5, 15);
     this->x_offset = 0;
     this->y_offset = 0;
+    this->playerSprite->baseSprite->setScale(0.5, 0.5);
 }
 
 Player::~Player() {

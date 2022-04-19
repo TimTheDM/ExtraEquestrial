@@ -13,6 +13,7 @@
 screenType gameScreen::run(sf::RenderWindow* window) {
     //runs a single game loop of the game screen
     processInput(window);
+    movePlayer();
     return game;
 }
 
@@ -56,6 +57,7 @@ void gameScreen::moveEnemies() {
 
 void gameScreen::movePlayer() {
     //moves the player
+    this->player->movePlayer();
 }
 
 void gameScreen::moveBullets() {
