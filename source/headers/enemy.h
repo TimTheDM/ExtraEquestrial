@@ -8,7 +8,6 @@
 
 class Enemy {
     //class that stores data for an enemy object
-    SpriteSheet* sprite;
     std::vector<Path>* path;
     std::string type;
     float speed;
@@ -16,6 +15,7 @@ class Enemy {
     int rateOfFire;
     int ticksSinceFire;
 public:
+    SpriteSheet* sprite;
     Enemy(int, int, const std::string&, std::vector<Path>*);
     ~Enemy();
     void moveEnemy();

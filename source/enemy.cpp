@@ -1,3 +1,4 @@
+#include <iostream>
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include "headers\Path.h"
@@ -9,7 +10,7 @@ Enemy::Enemy(int xpos, int ypos, const std::string& type, std::vector<Path>* pat
     //constructor for enemy type, will use above data to populate enemy object
     this->path = path;
     this->pathIndex = 0;
-    this->path->push_back(Path(-1, 0.0, 0.0));
+    this->path->push_back(*(new Path(-1, 0.0, 0.0)));
     this->type = type;
     this->ticksSinceFire = 0;
     //placeholder, when more types exist, they will have their data stored in enemy.h
@@ -17,7 +18,9 @@ Enemy::Enemy(int xpos, int ypos, const std::string& type, std::vector<Path>* pat
         this->speed = 0.5;
         this->rateOfFire = 50;
         this->sprite = new SpriteSheet(assets::testEnemy, 1, 1);
+        std::cout << "New enemy created";
     }
+    this->sprite->baseSprite->move(xpos, ypos);
 }
 
 Enemy::~Enemy() {
