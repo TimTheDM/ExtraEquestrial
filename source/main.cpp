@@ -16,7 +16,6 @@ int main()
 {
     gameData::initializeData();
     assets::loadAssets();
-
     sf::RenderWindow window(sf::VideoMode(gameData::screenWidth, gameData::screenLength), "Extra Equestrial");
     window.setSize(sf::Vector2u(gameData::screenWidth * 3, gameData::screenLength * 3));
     window.setFramerateLimit(30);
