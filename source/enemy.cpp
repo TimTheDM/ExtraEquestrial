@@ -1,4 +1,3 @@
-#include <iostream>
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include "headers\Path.h"
@@ -18,7 +17,6 @@ Enemy::Enemy(int xpos, int ypos, const std::string& type, std::vector<Path>* pat
         this->speed = 0.5;
         this->rateOfFire = 50;
         this->sprite = new SpriteSheet(assets::testEnemy, 1, 1);
-        std::cout << "New enemy created";
     }
     this->sprite->baseSprite->move(xpos, ypos);
 }
