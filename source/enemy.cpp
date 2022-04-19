@@ -29,7 +29,7 @@ Enemy::~Enemy() {
 }
 
 void Enemy::moveEnemy() {
-    this->sprite->getSprite()->move(this->path->at(this->pathIndex).retrieve_x_offset(), this->path->at(this->pathIndex).retrieve_y_offset());
+    this->sprite->getSprite()->move(this->path->at(this->pathIndex).retrieve_x_offset() * this->speed, this->path->at(this->pathIndex).retrieve_y_offset() * this->speed);
 }
 
 void Enemy::pathTick() {
