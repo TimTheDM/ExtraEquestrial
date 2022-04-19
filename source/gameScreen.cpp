@@ -8,7 +8,7 @@
 #include "headers\gameScreen.h"
 #include "headers\assets.h"
 #include "headers\Enemy.h"
-//#include "headers\player.h"
+#include "headers\player.h"
 
 screenType gameScreen::run(sf::RenderWindow* window) {
     //runs a single game loop of the game screen
@@ -20,7 +20,8 @@ void gameScreen::draw(sf::RenderWindow* window) {
     //draws gameScreen
     window->clear();
     window->draw(*this->background);
-    //window->draw(*this->player->playerSprite->baseSprite);
+    window->draw(*this->player->playerSprite->baseSprite);
+    this->player->playerSprite->nextPos();
     window->display();
 }
 
@@ -28,7 +29,7 @@ gameScreen::gameScreen() {
     //constructor for game screen object.
     this->enemies = new std::vector<Enemy>; //to be replaced by function calling level of enemies from gameData
     //this->bullets = new std::vector<Bullet>; uncomment when bullets are implemented
-    //this->player = new Player();
+    this->player = new Player();
     this->background = new sf::Sprite(assets::stageBackground);
 }
 
@@ -37,7 +38,7 @@ gameScreen::~gameScreen() {
     delete this->enemies;
     delete this->background;
     //delete this->bullets;
-    //delete this->player;
+    delete this->player;
 }
 
 void gameScreen::processInput(sf::RenderWindow* window) {

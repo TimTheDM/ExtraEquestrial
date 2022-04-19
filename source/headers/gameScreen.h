@@ -6,13 +6,13 @@
 #include "baseScreen.h"
 #include "assets.h"
 #include "Enemy.h"
-//#include "player.h"
+#include "player.h"
 
 class gameScreen : public baseScreen {
     std::vector<Enemy>* enemies;
     sf::Sprite* background;
     //std::vector<Bullet>* bullets;
-    //Player* player; 
+    Player* player;
 public:
     screenType run(sf::RenderWindow*);
     void draw(sf::RenderWindow*);
