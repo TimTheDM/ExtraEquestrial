@@ -1,3 +1,4 @@
+#include <iostream>
 #include <SFML/Graphics.hpp>
 #include "headers\path.h"
 #include "headers\bullet.h"

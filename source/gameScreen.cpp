@@ -29,6 +29,9 @@ void gameScreen::draw(sf::RenderWindow* window) {
     for (int i = 0; i < this->enemies->size();i++) {
         window->draw(*this->enemies->at(i).sprite->baseSprite);
     }
+    for (int i = 0;i < this->bullets->size();i++) {
+        window->draw(*this->bullets->at(i).bulletSprite);
+    }
     window->draw(*this->player->playerSprite->baseSprite);
     this->player->playerSprite->nextPos();
     window->display();
@@ -41,7 +44,8 @@ gameScreen::gameScreen() {
     std::vector<Path>* testPath = new std::vector<Path>;
     testPath->push_back(*(new Path(-1, 0.0, 0.03)));
     this->enemies->push_back(*(new Enemy(200, 100, "test", testPath)));
-    //this->bullets = new std::vector<Bullet>; uncomment when bullets are implemented
+    this->bullets = new std::vector<Bullet>;
+    this->bullets->reserve(1000);
     this->player = new Player();
     this->background = new sf::Sprite(assets::stageBackground);
 }
@@ -53,7 +57,7 @@ gameScreen::~gameScreen() {
     }
     delete this->enemies;
     delete this->background;
-    //delete this->bullets;
+    delete this->bullets;
     delete this->player;
 }
 
@@ -98,4 +102,12 @@ void gameScreen::playerCollide() {
 
 void gameScreen::generateBullets() {
     //checks if any enemies need to generate bullets, resets their bullet timers
+    for (int i = 0;i < this->enemies->size();i++) {
+        if (this->enemies->at(i).readyToFire()) {
+            this->bullets->push_back(*this->enemies->at(i).generateBullet());
+            this->enemies->at(i).resetBullet();
+        } else {
+            this->enemies->at(i).incrementBullet();
+        }
+    }
 }

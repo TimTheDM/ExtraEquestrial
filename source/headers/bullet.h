@@ -6,8 +6,6 @@
 
 class Bullet {
     Path* bulletPath;
-    float x_offset;
-    float y_offset;
     float speed;
     std::string type;
 public:
