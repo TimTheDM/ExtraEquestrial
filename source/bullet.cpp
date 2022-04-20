@@ -6,6 +6,7 @@
 Bullet::Bullet(int xpos, int ypos, const std::string& type, Path* bPath) {
     this->bulletPath = bPath;
     this->type = type;
+    this->isActive = true;
     //will change when more types are implemented
     if (type == "test") {
         this->bulletSprite = new sf::Sprite(assets::testBullet);

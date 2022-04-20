@@ -5,7 +5,6 @@
 #include "path.h"
 
 class Bullet {
-    bool isActive;
     Path* bulletPath;
     float x_offset;
     float y_offset;
@@ -16,6 +15,7 @@ public:
     Bullet(int, int, const std::string&, Path*);
     ~Bullet();
     void moveBullet();
+    bool isActive;
 };
 
 #endif //BULLET_H
