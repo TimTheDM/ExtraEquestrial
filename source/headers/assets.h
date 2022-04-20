@@ -10,6 +10,7 @@ struct assets {
     static sf::Texture stageBackground;
     static sf::Texture playSymbol;
     static sf::Texture playerSprite;
+    static sf::Texture testBullet;
     static sf::Texture exitSymbol;
     static sf::Texture cursor;
     static sf::Texture testEnemy;
