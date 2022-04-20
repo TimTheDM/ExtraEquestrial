@@ -46,6 +46,9 @@ gameScreen::gameScreen() {
 
 gameScreen::~gameScreen() {
     //destructor for game screen object.
+    for (int i = 0;i < this->enemies->size();i++) {
+        delete &this->enemies->at(i);
+    }
     delete this->enemies;
     delete this->background;
     //delete this->bullets;
