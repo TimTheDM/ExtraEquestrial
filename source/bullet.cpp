@@ -3,7 +3,7 @@
 #include "headers\bullet.h"
 #include "headers\assets.h"
 
-Bullet::Bullet(int xpos, int ypos, const std::string& type, Path* bPath) {
+Bullet::Bullet(float xpos, float ypos, const std::string& type, Path* bPath) {
     this->bulletPath = bPath;
     this->type = type;
     this->isActive = true;
