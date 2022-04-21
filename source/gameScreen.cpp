@@ -41,8 +41,8 @@ gameScreen::gameScreen() {
     //constructor for game screen object.
     this->enemies = new std::vector<Enemy*>; //to be replaced by function calling level of enemies from gameData
     this->bullets = new std::vector<Bullet*>;
-    std::vector<Path>* testPath = new std::vector<Path>;
-    testPath->push_back(*(new Path(-1, 0.0, 0.03)));
+    std::vector<Path*>* testPath = new std::vector<Path*>;
+    testPath->push_back((new Path(-1, 0.0, 0.03)));
     this->enemies->push_back((new Enemy(200, 100, "test", testPath)));
     this->player = new Player();
     this->background = new sf::Sprite(assets::stageBackground);
