@@ -10,7 +10,7 @@
 #include "bullet.h"
 
 class gameScreen : public baseScreen {
-    std::vector<Enemy>* enemies;
+    std::vector<Enemy*>* enemies;
     sf::Sprite* background;
     std::vector<Bullet>* bullets;
     Player* player;

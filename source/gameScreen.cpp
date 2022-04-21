@@ -27,7 +27,7 @@ void gameScreen::draw(sf::RenderWindow* window) {
     window->clear();
     window->draw(*this->background);
     for (int i = 0; i < this->enemies->size();i++) {
-        window->draw(*this->enemies->at(i).sprite->baseSprite);
+        window->draw(*this->enemies->at(i)->sprite->baseSprite);
     }
     for (int i = 0;i < this->bullets->size();i++) {
         window->draw(*this->bullets->at(i).bulletSprite);
@@ -39,11 +39,11 @@ void gameScreen::draw(sf::RenderWindow* window) {
 
 gameScreen::gameScreen() {
     //constructor for game screen object.
-    this->enemies = new std::vector<Enemy>; //to be replaced by function calling level of enemies from gameData
+    this->enemies = new std::vector<Enemy*>; //to be replaced by function calling level of enemies from gameData
     this->bullets = new std::vector<Bullet>;
     std::vector<Path>* testPath = new std::vector<Path>;
     testPath->push_back(*(new Path(-1, 0.0, 0.03)));
-    this->enemies->push_back(*(new Enemy(200, 100, "test", testPath)));
+    this->enemies->push_back((new Enemy(200, 100, "test", testPath)));
     this->bullets = new std::vector<Bullet>;
     this->bullets->reserve(1000);
     this->player = new Player();
@@ -53,7 +53,7 @@ gameScreen::gameScreen() {
 gameScreen::~gameScreen() {
     //destructor for game screen object.
     for (int i = 0;i < this->enemies->size();i++) {
-        delete &this->enemies->at(i);
+        delete this->enemies->at(i);
     }
     delete this->enemies;
     delete this->background;
@@ -73,8 +73,8 @@ void gameScreen::processInput(sf::RenderWindow* window) {
 void gameScreen::moveEnemies() {
     //moves enemies
     for (int i = 0;i < this->enemies->size();i++) {
-        this->enemies->at(i).moveEnemy();
-        this->enemies->at(i).pathTick();
+        this->enemies->at(i)->moveEnemy();
+        this->enemies->at(i)->pathTick();
     }
 }
 
@@ -103,11 +103,11 @@ void gameScreen::playerCollide() {
 void gameScreen::generateBullets() {
     //checks if any enemies need to generate bullets, resets their bullet timers
     for (int i = 0;i < this->enemies->size();i++) {
-        if (this->enemies->at(i).readyToFire()) {
-            this->bullets->push_back(*this->enemies->at(i).generateBullet());
-            this->enemies->at(i).resetBullet();
+        if (this->enemies->at(i)->readyToFire()) {
+            this->bullets->push_back(*this->enemies->at(i)->generateBullet());
+            this->enemies->at(i)->resetBullet();
         } else {
-            this->enemies->at(i).incrementBullet();
+            this->enemies->at(i)->incrementBullet();
         }
     }
 }
