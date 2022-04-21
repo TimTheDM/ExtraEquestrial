@@ -30,7 +30,7 @@ void gameScreen::draw(sf::RenderWindow* window) {
         window->draw(*this->enemies->at(i)->sprite->baseSprite);
     }
     for (int i = 0;i < this->bullets->size();i++) {
-        window->draw(*this->bullets->at(i).bulletSprite);
+        window->draw(*this->bullets->at(i)->bulletSprite);
     }
     window->draw(*this->player->playerSprite->baseSprite);
     this->player->playerSprite->nextPos();
@@ -40,12 +40,10 @@ void gameScreen::draw(sf::RenderWindow* window) {
 gameScreen::gameScreen() {
     //constructor for game screen object.
     this->enemies = new std::vector<Enemy*>; //to be replaced by function calling level of enemies from gameData
-    this->bullets = new std::vector<Bullet>;
+    this->bullets = new std::vector<Bullet*>;
     std::vector<Path>* testPath = new std::vector<Path>;
     testPath->push_back(*(new Path(-1, 0.0, 0.03)));
     this->enemies->push_back((new Enemy(200, 100, "test", testPath)));
-    this->bullets = new std::vector<Bullet>;
-    this->bullets->reserve(1000);
     this->player = new Player();
     this->background = new sf::Sprite(assets::stageBackground);
 }
@@ -86,8 +84,8 @@ void gameScreen::movePlayer() {
 void gameScreen::moveBullets() {
     //moves bullets
     for (int i = 0;i < this->bullets->size();i++) {
-        if (this->bullets->at(i).isActive) {
-            this->bullets->at(i).moveBullet();
+        if (this->bullets->at(i)->isActive) {
+            this->bullets->at(i)->moveBullet();
         }
     }
 }
@@ -104,7 +102,7 @@ void gameScreen::generateBullets() {
     //checks if any enemies need to generate bullets, resets their bullet timers
     for (int i = 0;i < this->enemies->size();i++) {
         if (this->enemies->at(i)->readyToFire()) {
-            this->bullets->push_back(*this->enemies->at(i)->generateBullet());
+            this->bullets->push_back(this->enemies->at(i)->generateBullet());
             this->enemies->at(i)->resetBullet();
         } else {
             this->enemies->at(i)->incrementBullet();
