@@ -33,6 +33,7 @@ void gameScreen::draw(sf::RenderWindow* window) {
         window->draw(*this->bullets->at(i)->bulletSprite);
     }
     window->draw(*this->player->playerSprite->baseSprite);
+    window->draw(*this->player->hitbox);
     this->player->playerSprite->nextPos();
     window->display();
 }
