@@ -111,6 +111,24 @@ void gameScreen::moveEnemies() {
 void gameScreen::movePlayer() {
     //moves the player
     this->player->movePlayer();
+    sf::FloatRect playerPos(this->player->playerSprite->baseSprite->getGlobalBounds());
+
+    if (playerPos.left < 0) {
+        this->player->playerSprite->baseSprite->setPosition(0, playerPos.top);
+        playerPos.left = 0;
+    }
+    if (playerPos.top < 0) {
+        this->player->playerSprite->baseSprite->setPosition(playerPos.left, 0);
+        playerPos.top = 0;
+    }
+    if (playerPos.width + playerPos.left > gameData::screenWidth) {
+        this->player->playerSprite->baseSprite->setPosition(gameData::screenWidth - playerPos.width, playerPos.top);
+        playerPos.left = gameData::screenWidth - playerPos.width;
+    }
+    if (playerPos.top + playerPos.height > gameData::screenLength) {
+        this->player->playerSprite->baseSprite->setPosition(playerPos.left, gameData::screenLength - playerPos.height);
+        playerPos.top = gameData::screenLength - playerPos.height;
+    }
 }
 
 void gameScreen::moveBullets() {
