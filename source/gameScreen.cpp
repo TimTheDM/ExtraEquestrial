@@ -11,11 +11,14 @@
 #include "headers\player.h"
 #include "headers\bullet.h"
 
-bool DISPLAY_HITBOX = true;
+const bool DISPLAY_HITBOX = true;
+const float SCROLL_SPEED = 0.05;
+const bool WILL_SCROLL = false;
 
 screenType gameScreen::run(sf::RenderWindow* window) {
     //runs a single game loop of the game screen
     processInput(window);
+    moveView(window);
     movePlayer();
     moveEnemies();
     moveBullets();
@@ -78,6 +81,8 @@ gameScreen::gameScreen() {
     this->enemies->push_back((new Enemy(200, 100, "test", testPath)));
     this->player = new Player();
     this->background = new sf::Sprite(assets::stageBackground);
+    this->gameView = new sf::View(sf::Vector2f(gameData::screenWidth / 2, gameData::screenLength / 2), sf::Vector2f(gameData::screenWidth, gameData::screenLength));
+    this->isScroll = WILL_SCROLL;
 }
 
 gameScreen::~gameScreen() {
@@ -100,6 +105,12 @@ void gameScreen::processInput(sf::RenderWindow* window) {
     this->player->joystickShift();
 }
 
+void gameScreen::moveView(sf::RenderWindow* window) {
+    //moves view by SCROLL_SPEED every game tick
+    window->setView(*this->gameView);
+    if (this->isScroll) this->gameView->move(SCROLL_SPEED, 0);
+}
+
 void gameScreen::moveEnemies() {
     //moves enemies
     for (int i = 0;i < this->enemies->size();i++) {
@@ -111,6 +122,25 @@ void gameScreen::moveEnemies() {
 void gameScreen::movePlayer() {
     //moves the player
     this->player->movePlayer();
+    sf::FloatRect playerPos(this->player->playerSprite->baseSprite->getGlobalBounds());
+    sf::Vector2f viewPos(this->gameView->getCenter());
+
+    if (playerPos.left < viewPos.x - (gameData::screenWidth / 2)) {
+        this->player->playerSprite->baseSprite->setPosition(viewPos.x - (gameData::screenWidth / 2), playerPos.top);
+        playerPos.left = viewPos.x - (gameData::screenWidth / 2);
+    }
+    if (playerPos.top < 0) {
+        this->player->playerSprite->baseSprite->setPosition(playerPos.left, 0);
+        playerPos.top = 0;
+    }
+    if (playerPos.width + playerPos.left > viewPos.x + (gameData::screenWidth / 2)) {
+        this->player->playerSprite->baseSprite->setPosition(viewPos.x + (gameData::screenWidth / 2) - playerPos.width, playerPos.top);
+        playerPos.left = viewPos.x + (gameData::screenWidth / 2) - playerPos.width;
+    }
+    if (playerPos.top + playerPos.height > gameData::screenLength) {
+        this->player->playerSprite->baseSprite->setPosition(playerPos.left, gameData::screenLength - playerPos.height);
+        playerPos.top = gameData::screenLength - playerPos.height;
+    }
 }
 
 void gameScreen::moveBullets() {
