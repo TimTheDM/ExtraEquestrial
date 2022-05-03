@@ -110,7 +110,11 @@ void gameScreen::checkCollision() {
 }
 
 bool gameScreen::doesCollide(const sf::Vector2f& playerPos, int playerRadius, const sf::Vector2f& bulletPos, int bulletRadius) {
-    return false;
+    float distance = sqrt(std::pow((playerPos.x - bulletPos.x), 2) + std::pow(playerPos.y - bulletPos.y, 2));
+    if ( (playerRadius + bulletRadius) > distance ) {
+        std::cout << "Collide!\n";
+        return true;
+    } else return false;
 }
 
 void gameScreen::playerCollide() {
