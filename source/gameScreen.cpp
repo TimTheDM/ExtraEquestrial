@@ -11,6 +11,8 @@
 #include "headers\player.h"
 #include "headers\bullet.h"
 
+bool DISPLAY_HITBOX = true;
+
 screenType gameScreen::run(sf::RenderWindow* window) {
     //runs a single game loop of the game screen
     processInput(window);
@@ -33,7 +35,6 @@ void gameScreen::draw(sf::RenderWindow* window) {
         window->draw(*this->bullets->at(i)->bulletSprite);
     }
     window->draw(*this->player->playerSprite->baseSprite);
-    window->draw(*this->player->hitbox);
     this->player->playerSprite->nextPos();
     window->display();
 }
@@ -112,7 +113,6 @@ void gameScreen::checkCollision() {
 bool gameScreen::doesCollide(const sf::Vector2f& playerPos, int playerRadius, const sf::Vector2f& bulletPos, int bulletRadius) {
     float distance = sqrt(std::pow((playerPos.x - bulletPos.x), 2) + std::pow(playerPos.y - bulletPos.y, 2));
     if ( (playerRadius + bulletRadius) > distance ) {
-        std::cout << "Collide!\n";
         return true;
     } else return false;
 }
