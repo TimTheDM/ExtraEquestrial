@@ -93,6 +93,24 @@ void gameScreen::moveBullets() {
 
 void gameScreen::checkCollision() {
     //checks for collision between objects
+    sf::Vector2f playerPos(this->player->playerSprite->baseSprite->getPosition());
+    int pRadius = this->player->playerSprite->baseSprite->getLocalBounds().width / 2;
+    playerPos.x = playerPos.x + (this->player->playerSprite->baseSprite->getLocalBounds().width / 2);
+    playerPos.y = playerPos.y + (this->player->playerSprite->baseSprite->getLocalBounds().height / 2);
+
+    for (int i = 0;i < this->bullets->size();i++) {
+        sf::Vector2f bulletPos(this->bullets->at(i)->bulletSprite->getPosition());
+        int bRadius = this->bullets->at(i)->bulletSprite->getLocalBounds().width / 2;
+        bulletPos.x = bulletPos.x + (this->bullets->at(i)->bulletSprite->getLocalBounds().width / 2);
+        bulletPos.y = bulletPos.y + (this->bullets->at(i)->bulletSprite->getLocalBounds().height / 2);
+        if (this->doesCollide(playerPos, pRadius, bulletPos, bRadius)) {
+            this->playerCollide();
+        }
+    }
+}
+
+bool gameScreen::doesCollide(const sf::Vector2f& playerPos, int playerRadius, const sf::Vector2f& bulletPos, int bulletRadius) {
+    return false;
 }
 
 void gameScreen::playerCollide() {
