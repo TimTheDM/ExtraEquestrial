@@ -17,7 +17,7 @@ float SCROLL_SPEED = 0.05;
 screenType gameScreen::run(sf::RenderWindow* window) {
     //runs a single game loop of the game screen
     processInput(window);
-    //moveView(window);
+    moveView(window);
     movePlayer();
     moveEnemies();
     moveBullets();
@@ -100,6 +100,10 @@ void gameScreen::processInput(sf::RenderWindow* window) {
     }
 
     this->player->joystickShift();
+}
+
+void gameScreen::moveView(sf::RenderWindow* window) {
+    //moves view by SCROLL_SPEED every game tick
 }
 
 void gameScreen::moveEnemies() {

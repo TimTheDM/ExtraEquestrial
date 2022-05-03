@@ -12,10 +12,12 @@
 class gameScreen : public baseScreen {
     std::vector<Enemy*>* enemies;
     sf::Sprite* background;
+    sf::View* gameView;
     std::vector<Bullet*>* bullets;
     Player* player;
     bool isCollide;
     void processInput(sf::RenderWindow*);
+    void moveView(sf::RenderWindow*);
     void moveBackground();
     void moveEnemies();
     void moveBullets();
