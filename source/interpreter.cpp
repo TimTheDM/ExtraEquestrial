@@ -6,7 +6,7 @@
 #include "headers\enemy.h"
 
 std::string filterSpace(std::string line);
-
+//test
 std::vector<Enemy*>* interpret(std::string levelName)
 {
     bool constructEnemy = false;
