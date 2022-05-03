@@ -4,6 +4,7 @@
 #include <vector>
 #include "headers\Path.h"
 #include "headers\enemy.h"
+#include "headers\interpreter.h"
 
 std::string filterSpace(std::string line);
 //test
@@ -84,6 +85,9 @@ std::vector<Enemy*>* interpret(std::string levelName)
         return levelEnemies;
     }
     else std::cout << "Unable to open level file";
+
+    levelFile.close();
+    return levelEnemies;
 }
 
 std::string filterSpace(std::string line)
