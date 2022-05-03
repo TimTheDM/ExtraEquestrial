@@ -106,6 +106,7 @@ void gameScreen::processInput(sf::RenderWindow* window) {
 void gameScreen::moveView(sf::RenderWindow* window) {
     //moves view by SCROLL_SPEED every game tick
     window->setView(*this->gameView);
+    this->gameView->move(SCROLL_SPEED, 0);
 }
 
 void gameScreen::moveEnemies() {
@@ -120,18 +121,19 @@ void gameScreen::movePlayer() {
     //moves the player
     this->player->movePlayer();
     sf::FloatRect playerPos(this->player->playerSprite->baseSprite->getGlobalBounds());
+    sf::Vector2f viewPos(this->gameView->getCenter());
 
-    if (playerPos.left < 0) {
-        this->player->playerSprite->baseSprite->setPosition(0, playerPos.top);
-        playerPos.left = 0;
+    if (playerPos.left < viewPos.x - (gameData::screenWidth / 2)) {
+        this->player->playerSprite->baseSprite->setPosition(viewPos.x - (gameData::screenWidth / 2), playerPos.top);
+        playerPos.left = viewPos.x - (gameData::screenWidth / 2);
     }
     if (playerPos.top < 0) {
         this->player->playerSprite->baseSprite->setPosition(playerPos.left, 0);
         playerPos.top = 0;
     }
-    if (playerPos.width + playerPos.left > gameData::screenWidth) {
-        this->player->playerSprite->baseSprite->setPosition(gameData::screenWidth - playerPos.width, playerPos.top);
-        playerPos.left = gameData::screenWidth - playerPos.width;
+    if (playerPos.width + playerPos.left > viewPos.x + (gameData::screenWidth / 2)) {
+        this->player->playerSprite->baseSprite->setPosition(viewPos.x + (gameData::screenWidth / 2) - playerPos.width, playerPos.top);
+        playerPos.left = viewPos.x + (gameData::screenWidth / 2) - playerPos.width;
     }
     if (playerPos.top + playerPos.height > gameData::screenLength) {
         this->player->playerSprite->baseSprite->setPosition(playerPos.left, gameData::screenLength - playerPos.height);
