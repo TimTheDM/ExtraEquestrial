@@ -80,6 +80,7 @@ gameScreen::gameScreen() {
     this->enemies->push_back((new Enemy(200, 100, "test", testPath)));
     this->player = new Player();
     this->background = new sf::Sprite(assets::stageBackground);
+    this->gameView = new sf::View(sf::Vector2f(gameData::screenWidth / 2, gameData::screenLength / 2), sf::Vector2f(gameData::screenWidth, gameData::screenLength));
 }
 
 gameScreen::~gameScreen() {
@@ -104,6 +105,7 @@ void gameScreen::processInput(sf::RenderWindow* window) {
 
 void gameScreen::moveView(sf::RenderWindow* window) {
     //moves view by SCROLL_SPEED every game tick
+    window->setView(*this->gameView);
 }
 
 void gameScreen::moveEnemies() {
