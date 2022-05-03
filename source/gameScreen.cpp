@@ -11,8 +11,9 @@
 #include "headers\player.h"
 #include "headers\bullet.h"
 
-bool DISPLAY_HITBOX = true;
-float SCROLL_SPEED = 0.05;
+const bool DISPLAY_HITBOX = true;
+const float SCROLL_SPEED = 0.05;
+const bool WILL_SCROLL = false;
 
 screenType gameScreen::run(sf::RenderWindow* window) {
     //runs a single game loop of the game screen
@@ -81,6 +82,7 @@ gameScreen::gameScreen() {
     this->player = new Player();
     this->background = new sf::Sprite(assets::stageBackground);
     this->gameView = new sf::View(sf::Vector2f(gameData::screenWidth / 2, gameData::screenLength / 2), sf::Vector2f(gameData::screenWidth, gameData::screenLength));
+    this->isScroll = WILL_SCROLL;
 }
 
 gameScreen::~gameScreen() {
@@ -106,7 +108,7 @@ void gameScreen::processInput(sf::RenderWindow* window) {
 void gameScreen::moveView(sf::RenderWindow* window) {
     //moves view by SCROLL_SPEED every game tick
     window->setView(*this->gameView);
-    this->gameView->move(SCROLL_SPEED, 0);
+    if (this->isScroll) this->gameView->move(SCROLL_SPEED, 0);
 }
 
 void gameScreen::moveEnemies() {

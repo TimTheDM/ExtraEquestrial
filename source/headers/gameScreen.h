@@ -16,6 +16,7 @@ class gameScreen : public baseScreen {
     std::vector<Bullet*>* bullets;
     Player* player;
     bool isCollide;
+    bool isScroll;
     void processInput(sf::RenderWindow*);
     void moveView(sf::RenderWindow*);
     void moveBackground();
