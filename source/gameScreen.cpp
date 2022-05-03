@@ -27,7 +27,11 @@ screenType gameScreen::run(sf::RenderWindow* window) {
 void gameScreen::draw(sf::RenderWindow* window) {
     //draws gameScreen
     window->clear();
+
+    //Draw the background
     window->draw(*this->background);
+
+    //Draw all enemies, bullets, and the player
     for (int i = 0; i < this->enemies->size();i++) {
         window->draw(*this->enemies->at(i)->sprite->baseSprite);
     }
@@ -35,6 +39,32 @@ void gameScreen::draw(sf::RenderWindow* window) {
         window->draw(*this->bullets->at(i)->bulletSprite);
     }
     window->draw(*this->player->playerSprite->baseSprite);
+
+    //draw the hitboxes if in hitbox mode
+    if (DISPLAY_HITBOX) {
+        sf::CircleShape hitbox;
+        hitbox.setRadius(this->player->playerSprite->baseSprite->getLocalBounds().width / 2);
+        sf::Vector2f circlePos(this->player->playerSprite->baseSprite->getPosition());
+        hitbox.setPosition(circlePos);
+        hitbox.setScale(0.5, 0.5);
+        hitbox.setFillColor(sf::Color(5, 5, 5, 150));
+        window->draw(hitbox);
+        if (this->isCollide) {
+            sf::Sprite collideConfirm(assets::testEnemy);
+            window->draw(collideConfirm);
+        }
+
+        for (int i = 0;i < this->bullets->size();i++) {
+            sf::CircleShape hitbox;
+            hitbox.setRadius(this->bullets->at(i)->bulletSprite->getLocalBounds().width / 2);
+            sf::Vector2f bulletPos(this->bullets->at(i)->bulletSprite->getPosition());
+            hitbox.setPosition(bulletPos);
+            hitbox.setFillColor(sf::Color(5, 5, 5, 150));
+            window->draw(hitbox);
+        }
+    }
+
+    //update spriteSheet animations
     this->player->playerSprite->nextPos();
     window->display();
 }
@@ -95,10 +125,11 @@ void gameScreen::moveBullets() {
 void gameScreen::checkCollision() {
     //checks for collision between objects
     sf::Vector2f playerPos(this->player->playerSprite->baseSprite->getPosition());
-    int pRadius = this->player->playerSprite->baseSprite->getLocalBounds().width / 2;
-    playerPos.x = playerPos.x + (this->player->playerSprite->baseSprite->getLocalBounds().width / 2);
-    playerPos.y = playerPos.y + (this->player->playerSprite->baseSprite->getLocalBounds().height / 2);
+    int pRadius = this->player->playerSprite->baseSprite->getLocalBounds().width / 4;
+    playerPos.x = playerPos.x + pRadius;
+    playerPos.y = playerPos.y + pRadius;
 
+    this->isCollide = false;
     for (int i = 0;i < this->bullets->size();i++) {
         sf::Vector2f bulletPos(this->bullets->at(i)->bulletSprite->getPosition());
         int bRadius = this->bullets->at(i)->bulletSprite->getLocalBounds().width / 2;
@@ -106,6 +137,7 @@ void gameScreen::checkCollision() {
         bulletPos.y = bulletPos.y + (this->bullets->at(i)->bulletSprite->getLocalBounds().height / 2);
         if (this->doesCollide(playerPos, pRadius, bulletPos, bRadius)) {
             this->playerCollide();
+            this->isCollide = true;
         }
     }
 }
@@ -114,7 +146,9 @@ bool gameScreen::doesCollide(const sf::Vector2f& playerPos, int playerRadius, co
     float distance = sqrt(std::pow((playerPos.x - bulletPos.x), 2) + std::pow(playerPos.y - bulletPos.y, 2));
     if ( (playerRadius + bulletRadius) > distance ) {
         return true;
-    } else return false;
+    } else {
+        return false;
+    }
 }
 
 void gameScreen::playerCollide() {

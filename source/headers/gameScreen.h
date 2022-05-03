@@ -14,6 +14,7 @@ class gameScreen : public baseScreen {
     sf::Sprite* background;
     std::vector<Bullet*>* bullets;
     Player* player;
+    bool isCollide;
     bool doesCollide(const sf::Vector2f&, int, const sf::Vector2f&, int);
 public:
     screenType run(sf::RenderWindow*);
