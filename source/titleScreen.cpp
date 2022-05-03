@@ -45,7 +45,7 @@ TitleScreen::TitleScreen() {
     this->play = new sf::Sprite(assets::playSymbol);
     this->exit = new sf::Sprite(assets::exitSymbol);
     this->titleTheme = &assets::titleMusic;
-    this->background = new SpriteSheet(assets::titleBackground, 8, 5);
+    this->background = new SpriteSheet(assets::titleBackground, 8, 15);
     this->cursorPos = 0;
     this->titleTheme->setLoop(true);
     this->titleTheme->play();

@@ -2,13 +2,17 @@
 #include "math.h"
 
 Path::Path(int time, float angle, float mutation) {
-    if (time < 1) this->time = 1;
-    else this->time = time;
+    this->time = time;
     this->timer = 0;
     this->mutation = mutation;
     this->angle = angle;
-    this->x_offset = cos(angle);
-    this->y_offset = -sin(angle);
+    if (time == -1) {
+        this->x_offset = 0.0;
+        this->y_offset = 0.0;
+    } else {
+        this->x_offset = cos(angle);
+        this->y_offset = -sin(angle);
+    }
 }
 
 void Path::incrementPath() {
@@ -29,5 +33,5 @@ float Path::retrieve_y_offset() {
 }
 
 bool Path::isDone() {
-    return (this->timer >= this->time);
+    return (this->timer >= this->time && this->time > 0);
 }

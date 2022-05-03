@@ -5,19 +5,24 @@
 #include <vector>
 #include "Path.h"
 #include "SpriteSheet.h"
+#include "bullet.h"
 
 class Enemy {
     //class that stores data for an enemy object
-    SpriteSheet* sprite;
-    std::vector<Path>* path;
+    std::vector<Path*>* path;
     std::string type;
     float speed;
     int pathIndex;
     int rateOfFire;
     int ticksSinceFire;
 public:
-    Enemy(int, int, const std::string&, std::vector<Path>*);
+    SpriteSheet* sprite;
+    Enemy(int, int, const std::string&, std::vector<Path*>*);
     ~Enemy();
+    Bullet* generateBullet();
+    void resetBullet();
+    void incrementBullet();
+    bool readyToFire();
     void moveEnemy();
     void pathTick();
 };
