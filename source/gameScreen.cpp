@@ -12,10 +12,12 @@
 #include "headers\bullet.h"
 
 bool DISPLAY_HITBOX = true;
+float SCROLL_SPEED = 0.05;
 
 screenType gameScreen::run(sf::RenderWindow* window) {
     //runs a single game loop of the game screen
     processInput(window);
+    //moveView(window);
     movePlayer();
     moveEnemies();
     moveBullets();

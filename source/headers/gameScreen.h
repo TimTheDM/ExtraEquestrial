@@ -15,10 +15,6 @@ class gameScreen : public baseScreen {
     std::vector<Bullet*>* bullets;
     Player* player;
     bool isCollide;
-    bool doesCollide(const sf::Vector2f&, int, const sf::Vector2f&, int);
-public:
-    screenType run(sf::RenderWindow*);
-    void draw(sf::RenderWindow*);
     void processInput(sf::RenderWindow*);
     void moveBackground();
     void moveEnemies();
@@ -27,6 +23,10 @@ public:
     void checkCollision();
     void playerCollide();
     void generateBullets();
+    bool doesCollide(const sf::Vector2f&, int, const sf::Vector2f&, int);
+public:
+    screenType run(sf::RenderWindow*);
+    void draw(sf::RenderWindow*);
     gameScreen();
     ~gameScreen();
 };
