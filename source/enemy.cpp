@@ -16,7 +16,7 @@ Enemy::Enemy(int xpos, int ypos, const std::string& type, std::vector<Path*>* pa
     //placeholder, when more types exist, they will have their data stored in enemy.h
     if (type == "test") {
         this->speed = 0.5;
-        this->rateOfFire = 500;
+        this->rateOfFire = 1500;
         this->sprite = new SpriteSheet(assets::testEnemy, 1, 1);
     }
     this->sprite->baseSprite->move(xpos, ypos);
@@ -53,7 +53,7 @@ bool Enemy::readyToFire() {
 Bullet* Enemy::generateBullet() {
     //returns bullet
     sf::Rect<float> position = this->sprite->baseSprite->getGlobalBounds();
-    Path* defaultPath = new Path(-2, -1.0, 0.0);
+    Path* defaultPath = new Path(-2, 3.14159, 0.0);
     Bullet* placeholder = new Bullet(position.left, position.top + position.height, "test", defaultPath);
     return placeholder;
 }

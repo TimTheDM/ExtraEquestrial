@@ -8,13 +8,9 @@
 Player::Player() {
     //constructor for player
     this->playerSprite = new SpriteSheet(assets::playerSprite, 5, 15);
-    this->hitbox = new sf::CircleShape(this->playerSprite->baseSprite->getLocalBounds().width/2);
-    this->hitbox->setFillColor(sf::Color(255, 255, 255, 128));
     this->x_offset = 0;
     this->y_offset = 0;
     this->playerSprite->baseSprite->setScale(0.5, 0.5);
-    this->hitbox->setScale(0.5, 0.5);
-
 }
 
 Player::~Player() {
@@ -25,7 +21,6 @@ Player::~Player() {
 void Player::movePlayer() {
     //moves player by offsets
     this->playerSprite->baseSprite->move(this->x_offset, this->y_offset);
-    this->hitbox->move(this->x_offset, this->y_offset);
 }
 
 void Player::joystickShift() {
