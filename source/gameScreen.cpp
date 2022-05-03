@@ -19,6 +19,7 @@ screenType gameScreen::run(sf::RenderWindow* window) {
     //runs a single game loop of the game screen
     processInput(window);
     moveView(window);
+    checkActive();
     movePlayer();
     moveEnemies();
     moveBullets();
@@ -109,6 +110,10 @@ void gameScreen::moveView(sf::RenderWindow* window) {
     //moves view by SCROLL_SPEED every game tick
     window->setView(*this->gameView);
     if (this->isScroll) this->gameView->move(SCROLL_SPEED, 0);
+}
+
+void gameScreen::checkActive() {
+    //function that activates and deactives enemies depending on where the view is
 }
 
 void gameScreen::moveEnemies() {
