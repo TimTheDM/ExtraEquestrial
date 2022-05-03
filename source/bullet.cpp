@@ -11,7 +11,7 @@ Bullet::Bullet(float xpos, float ypos, const std::string& type, Path* bPath) {
     //will change when more types are implemented
     if (type == "test") {
         this->bulletSprite = new sf::Sprite(assets::testBullet);
-        this->speed = 0.5;
+        this->speed = 0.05;
         this->bulletSprite->move(xpos, ypos);
     }
 }
@@ -22,5 +22,5 @@ Bullet::~Bullet() {
 }
 
 void Bullet::moveBullet() {
-    this->bulletSprite->move(this->bulletPath->retrieve_x_offset(), this->bulletPath->retrieve_y_offset());
+    this->bulletSprite->move(this->bulletPath->retrieve_x_offset() * speed, this->bulletPath->retrieve_y_offset() * speed);
 }
