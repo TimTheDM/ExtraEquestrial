@@ -112,8 +112,9 @@ void gameScreen::moveView(sf::RenderWindow* window) {
     if (this->isScroll) this->gameView->move(SCROLL_SPEED, 0);
 }
 
-void gameScreen::checkActive() {
+void gameScreen::manageActive() {
     //function that activates and deactives enemies depending on where the view is
+    
 }
 
 void gameScreen::moveEnemies() {
