@@ -19,7 +19,7 @@ screenType gameScreen::run(sf::RenderWindow* window) {
     //runs a single game loop of the game screen
     processInput(window);
     moveView(window);
-    checkActive();
+    manageActive();
     movePlayer();
     moveEnemies();
     moveBullets();
@@ -114,7 +114,18 @@ void gameScreen::moveView(sf::RenderWindow* window) {
 
 void gameScreen::manageActive() {
     //function that activates and deactives enemies depending on where the view is
-    
+    float widthMiddle = this->gameView->getCenter().x;
+    float halfScreenWidth = gameData::screenWidth;
+
+    for (int i = 0;i < this->enemies->size();i++) {
+        float enemyXPos = this->enemies->at(i)->sprite->baseSprite->getPosition().x;
+        int enemyWidth = this->enemies->at(i)->sprite->baseSprite->getLocalBounds().width;
+        if (this->enemies->at(i)->active && (enemyXPos + enemyWidth) < (widthMiddle - halfScreenWidth)) {
+            this->enemies->at(i)->active = false;
+        } else if (this->enemies->at(i)->active == false && enemyXPos < (widthMiddle - halfScreenWidth)) {
+            this->enemies->at(i)->active = true;
+        }
+    }
 }
 
 void gameScreen::moveEnemies() {
