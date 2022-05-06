@@ -29,6 +29,7 @@ class gameScreen : public baseScreen {
     void movePlayer();
     void checkCollision();
     void playerCollide();
+    void bulletCollideEnemy(int);
     void generateBullets();
     bool doesCollide(const sf::Vector2f&, int, const sf::Vector2f&, int);
 public:

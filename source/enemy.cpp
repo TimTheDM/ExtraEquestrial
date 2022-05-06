@@ -14,6 +14,7 @@ Enemy::Enemy(int xpos, int ypos, const std::string& type, std::vector<Path*>* pa
     this->type = type;
     this->ticksSinceFire = 0;
     this->active = false;
+    this->defeated = false;
     //placeholder, when more types exist, they will have their data stored in enemy.h
     if (type == "test") {
         this->speed = 0.5;

@@ -166,7 +166,7 @@ void gameScreen::manageActive() {
         if (this->enemies->at(i)->active && (enemyXPos + enemyWidth) < (widthMiddle - halfScreenWidth)) {
             std::cout << "Set deActive\n";
             this->enemies->at(i)->active = false;
-        } else if (this->enemies->at(i)->active == false && enemyXPos < (widthMiddle + halfScreenWidth) && (enemyXPos - enemyWidth) > (widthMiddle - halfScreenWidth)) {
+        } else if (this->enemies->at(i)->active == false && enemyXPos < (widthMiddle + halfScreenWidth) && (enemyXPos - enemyWidth) > (widthMiddle - halfScreenWidth) && this->enemies->at(i)->defeated == false) {
             std::cout << "Set Active\n";
             this->enemies->at(i)->active = true;
         }
@@ -242,6 +242,27 @@ void gameScreen::checkCollision() {
             }
         }
     }
+
+    for (int i = 0;i < this->enemies->size();i++) {
+        if (this->enemies->at(i)->active) {
+            sf::Vector2f enemyPos(this->enemies->at(i)->sprite->baseSprite->getPosition());
+            int eRadius = this->enemies->at(i)->sprite->baseSprite->getLocalBounds().width / 2;
+            enemyPos.x = enemyPos.x + eRadius;
+            enemyPos.y = enemyPos.y + eRadius;
+
+            for (int i2 = 0;i2 < this->pBullets->size();i2++) {
+                sf::Vector2f bulletPos(this->pBullets->at(i2)->bulletSprite->getPosition());
+                int bRadius = this->pBullets->at(i2)->bulletSprite->getLocalBounds().width / 2;
+                bulletPos.x = bulletPos.x + (this->pBullets->at(i2)->bulletSprite->getLocalBounds().width / 2);
+                bulletPos.y = bulletPos.y + (this->pBullets->at(i2)->bulletSprite->getLocalBounds().height / 2);
+                if (this->doesCollide(enemyPos, eRadius, bulletPos, bRadius)) {
+                    //enemy bullet collision stuff
+                    std::cout << "YEOUCH!\n";
+                    this->bulletCollideEnemy(i2);
+                }
+            }
+        }
+    }
 }
 
 bool gameScreen::doesCollide(const sf::Vector2f& playerPos, int playerRadius, const sf::Vector2f& bulletPos, int bulletRadius) {
@@ -257,6 +278,12 @@ void gameScreen::playerCollide() {
     //Called when player sprite intersects with a bullet sprite
     this->player->hit = true;
     gameData::lives--;
+}
+
+void gameScreen::bulletCollideEnemy(int index) {
+    //Called when a players bullet intersects with an enemy. index of position of enemy to be deactivated
+    this->enemies->at(index)->active = false;
+    this->enemies->at(index)->defeated = true;
 }
 
 void gameScreen::generateBullets() {

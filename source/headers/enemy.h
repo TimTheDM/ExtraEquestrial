@@ -17,6 +17,7 @@ class Enemy {
     int ticksSinceFire;
 public:
     bool active;
+    bool defeated;
     SpriteSheet* sprite;
     Enemy(int, int, const std::string&, std::vector<Path*>*);
     ~Enemy();
