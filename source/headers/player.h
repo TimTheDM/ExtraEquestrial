@@ -8,6 +8,8 @@
 
 class Player {
     //Class for holding player data
+    int invulnTimer;
+    int invulnTime;
 public:
     SpriteSheet* playerSprite;
     void movePlayer();

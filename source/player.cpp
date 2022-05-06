@@ -5,11 +5,15 @@
 #include "headers\player.h"
 #include "headers\assets.h"
 
+const int INVULN_FRAMES = 30;
+
 Player::Player() {
     //constructor for player
     this->playerSprite = new SpriteSheet(assets::playerSprite, 5, 15);
     this->x_offset = 0;
     this->y_offset = 0;
+    this->invulnTimer = INVULN_FRAMES;
+    this->invulnTime = INVULN_FRAMES;
     this->playerSprite->baseSprite->setScale(0.5, 0.5);
 }
 
