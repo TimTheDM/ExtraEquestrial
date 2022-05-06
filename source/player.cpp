@@ -95,6 +95,6 @@ void Player::bulletCooldown() {
 Bullet* Player::makeBullet() {
     this->isMakeBullet = false;
     this->bulletTimer = 0;
-    sf::Vector2f playerPos = this->playerSprite->baseSprite->getPosition();
-    return new Bullet(playerPos.x, playerPos.y, "player", new Path(-2, 0.0, 0.0));
+    sf::FloatRect playerPos = this->playerSprite->baseSprite->getGlobalBounds();
+    return new Bullet(playerPos.left + playerPos.width-5, playerPos.top + (playerPos.height / 2)-3, "player", new Path(-2, 0.0, 0.0));
 }

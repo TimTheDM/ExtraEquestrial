@@ -46,6 +46,10 @@ void gameScreen::draw(sf::RenderWindow* window) {
         window->draw(*this->bullets->at(i)->bulletSprite);
     }
 
+    for (int i = 0;i < this->pBullets->size();i++) {
+        window->draw(*this->pBullets->at(i)->bulletSprite);
+    }
+
     if (this->player->isInvuln()) {
         if (this->player->draw) {
             window->draw(*this->player->playerSprite->baseSprite);
@@ -208,6 +212,12 @@ void gameScreen::moveBullets() {
     for (int i = 0;i < this->bullets->size();i++) {
         if (this->bullets->at(i)->isActive) {
             this->bullets->at(i)->moveBullet();
+        }
+    }
+
+    for (int i = 0;i < this->pBullets->size();i++) {
+        if (this->pBullets->at(i)->isActive) {
+            this->pBullets->at(i)->moveBullet();
         }
     }
 }
