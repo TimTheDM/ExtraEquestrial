@@ -87,6 +87,7 @@ gameScreen::gameScreen() {
     //constructor for game screen object.
     this->enemies = new std::vector<Enemy*>; //to be replaced by function calling level of enemies from gameData
     this->bullets = new std::vector<Bullet*>;
+    this->pBullets = new std::vector<Bullet*>;
     std::vector<Path*>* testPath = new std::vector<Path*>;
     testPath->push_back((new Path(-1, 0.0, 0.03)));
     this->enemies->push_back((new Enemy(300, 100, "test", testPath)));
@@ -125,9 +126,17 @@ void gameScreen::moveView(sf::RenderWindow* window) {
 void gameScreen::managePlayer() {
     //function for managing players movement, bullets, and invuln state
     movePlayer();
+    
+    if (this->player->readyMakeBullet()) {
+        this->pBullets->push_back(this->player->makeBullet());
+    } else {
+        this->player->bulletCooldown();
+    }
+
     if (this->player->isInvuln()) {
         this->player->invulnTick();
     }
+
     if (this->player->hit) {
         //logic for when player is struck
         std::cout << "I'm hit!";

@@ -14,6 +14,7 @@ class gameScreen : public baseScreen {
     sf::Sprite* background;
     sf::View* gameView;
     std::vector<Bullet*>* bullets;
+    std::vector<Bullet*>* pBullets;
     Player* player;
     bool isCollide;
     bool isScroll;
