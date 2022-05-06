@@ -19,6 +19,8 @@ class gameScreen : public baseScreen {
     bool isScroll;
     void processInput(sf::RenderWindow*);
     void moveView(sf::RenderWindow*);
+    screenType screenManage(sf::RenderWindow*);
+    void managePlayer();
     void manageActive();
     void moveBackground();
     void moveEnemies();

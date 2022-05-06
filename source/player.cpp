@@ -5,11 +5,18 @@
 #include "headers\player.h"
 #include "headers\assets.h"
 
+const int INVULN_FRAMES = 240;
+const int INVULN_FRAME_FLASH = 8;
+
 Player::Player() {
     //constructor for player
     this->playerSprite = new SpriteSheet(assets::playerSprite, 5, 15);
     this->x_offset = 0;
     this->y_offset = 0;
+    this->invulnTimer = INVULN_FRAMES;
+    this->invulnTime = INVULN_FRAMES;
+    this->hit = false;
+    this->draw = false;
     this->playerSprite->baseSprite->setScale(0.5, 0.5);
 }
 
@@ -43,4 +50,26 @@ void Player::joystickShift() {
         this->x_offset = 0;
         this->y_offset = 0;
     }
+}
+
+bool Player::isInvuln() {
+    if (this->invulnTimer < this->invulnTime) return true;
+    else return false;
+}
+
+void Player::makeInvuln() {
+    this->invulnTimer = 0;
+    this->draw = false;
+}
+
+void Player::invulnTick() {
+    if (this->invulnTimer != this->invulnTime) this->invulnTimer++;
+    if (this->invulnTimer % INVULN_FRAME_FLASH == 0) {
+        if (this->draw) this->draw = false;
+        else this->draw = true;
+    }
+}
+
+int Player::getTime() {
+    return this->invulnTimer;
 }

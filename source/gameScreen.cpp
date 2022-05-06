@@ -14,18 +14,20 @@
 const bool DISPLAY_HITBOX = true;
 const float SCROLL_SPEED = 0.05;
 const bool WILL_SCROLL = true;
+const int START_X = 40;
+const int START_Y = 76;
 
 screenType gameScreen::run(sf::RenderWindow* window) {
     //runs a single game loop of the game screen
     processInput(window);
     moveView(window);
     manageActive();
-    movePlayer();
+    managePlayer();
     moveEnemies();
     moveBullets();
     checkCollision();
     generateBullets();
-    return game;
+    return screenManage(window);
 }
 
 void gameScreen::draw(sf::RenderWindow* window) {
@@ -39,10 +41,18 @@ void gameScreen::draw(sf::RenderWindow* window) {
     for (int i = 0; i < this->enemies->size();i++) {
         if (this->enemies->at(i)->active) window->draw(*this->enemies->at(i)->sprite->baseSprite);
     }
+
     for (int i = 0;i < this->bullets->size();i++) {
         window->draw(*this->bullets->at(i)->bulletSprite);
     }
-    window->draw(*this->player->playerSprite->baseSprite);
+
+    if (this->player->isInvuln()) {
+        if (this->player->draw) {
+            window->draw(*this->player->playerSprite->baseSprite);
+        }
+    } else {
+        window->draw(*this->player->playerSprite->baseSprite);
+    }
 
     //draw the hitboxes if in hitbox mode
     if (DISPLAY_HITBOX) {
@@ -79,7 +89,7 @@ gameScreen::gameScreen() {
     this->bullets = new std::vector<Bullet*>;
     std::vector<Path*>* testPath = new std::vector<Path*>;
     testPath->push_back((new Path(-1, 0.0, 0.03)));
-    this->enemies->push_back((new Enemy(500, 100, "test", testPath)));
+    this->enemies->push_back((new Enemy(300, 100, "test", testPath)));
     this->player = new Player();
     this->background = new sf::Sprite(assets::stageBackground);
     this->gameView = new sf::View(sf::Vector2f(gameData::screenWidth / 2, gameData::screenLength / 2), sf::Vector2f(gameData::screenWidth, gameData::screenLength));
@@ -110,6 +120,21 @@ void gameScreen::moveView(sf::RenderWindow* window) {
     //moves view by SCROLL_SPEED every game tick
     window->setView(*this->gameView);
     if (this->isScroll) this->gameView->move(SCROLL_SPEED, 0);
+}
+
+void gameScreen::managePlayer() {
+    //function for managing players movement, bullets, and invuln state
+    movePlayer();
+    if (this->player->isInvuln()) {
+        this->player->invulnTick();
+    }
+    if (this->player->hit) {
+        //logic for when player is struck
+        std::cout << "I'm hit!";
+        this->player->makeInvuln();
+        this->player->playerSprite->baseSprite->setPosition(START_X + this->gameView->getCenter().x - (gameData::screenWidth / 2), START_Y);
+        this->player->hit = false;
+    }
 }
 
 void gameScreen::manageActive() {
@@ -175,20 +200,22 @@ void gameScreen::moveBullets() {
 
 void gameScreen::checkCollision() {
     //checks for collision between objects
-    sf::Vector2f playerPos(this->player->playerSprite->baseSprite->getPosition());
-    int pRadius = this->player->playerSprite->baseSprite->getLocalBounds().width / 4;
-    playerPos.x = playerPos.x + pRadius;
-    playerPos.y = playerPos.y + pRadius;
+    if (this->player->isInvuln() == false) {
+        sf::Vector2f playerPos(this->player->playerSprite->baseSprite->getPosition());
+        int pRadius = this->player->playerSprite->baseSprite->getLocalBounds().width / 4;
+        playerPos.x = playerPos.x + pRadius;
+        playerPos.y = playerPos.y + pRadius;
 
-    this->isCollide = false;
-    for (int i = 0;i < this->bullets->size();i++) {
-        sf::Vector2f bulletPos(this->bullets->at(i)->bulletSprite->getPosition());
-        int bRadius = this->bullets->at(i)->bulletSprite->getLocalBounds().width / 2;
-        bulletPos.x = bulletPos.x + (this->bullets->at(i)->bulletSprite->getLocalBounds().width / 2);
-        bulletPos.y = bulletPos.y + (this->bullets->at(i)->bulletSprite->getLocalBounds().height / 2);
-        if (this->doesCollide(playerPos, pRadius, bulletPos, bRadius)) {
-            this->playerCollide();
-            this->isCollide = true;
+        this->isCollide = false;
+        for (int i = 0;i < this->bullets->size();i++) {
+            sf::Vector2f bulletPos(this->bullets->at(i)->bulletSprite->getPosition());
+            int bRadius = this->bullets->at(i)->bulletSprite->getLocalBounds().width / 2;
+            bulletPos.x = bulletPos.x + (this->bullets->at(i)->bulletSprite->getLocalBounds().width / 2);
+            bulletPos.y = bulletPos.y + (this->bullets->at(i)->bulletSprite->getLocalBounds().height / 2);
+            if (this->doesCollide(playerPos, pRadius, bulletPos, bRadius)) {
+                this->playerCollide();
+                this->isCollide = true;
+            }
         }
     }
 }
@@ -204,6 +231,8 @@ bool gameScreen::doesCollide(const sf::Vector2f& playerPos, int playerRadius, co
 
 void gameScreen::playerCollide() {
     //Called when player sprite intersects with a bullet sprite
+    this->player->hit = true;
+    gameData::lives--;
 }
 
 void gameScreen::generateBullets() {
@@ -218,4 +247,14 @@ void gameScreen::generateBullets() {
             }
         }
     }
+}
+
+screenType gameScreen::screenManage(sf::RenderWindow* window) {
+    //returns screenType the game should remain focused on. Game by default, and other screens when they have been properly flagged
+    if (gameData::lives < 0) {
+        gameData::lives = 4;
+        window->setView(window->getDefaultView());
+        return title;
+    }
+    else return game;
 }
