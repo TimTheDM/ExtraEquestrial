@@ -69,15 +69,16 @@ std::vector<Enemy*>* interpret(std::string levelName)
 
             if(line == "}" && constructEnemy == true && constructPath == true)
             {
-                std::cout << "Path construction completed." << '\n';
                 tempPath->push_back(new Path(tempTimer, tempAngle, tempMutation));
+                std::cout << "Path construction completed." << '\n';
                 constructPath = false;
             }
             else if(line == "}" && constructEnemy == true && constructPath == false)
             {
-                std::cout << "Enemy construction completed." << '\n';
                 tempEnemy = new Enemy(tempXpos, tempYpos, tempType, tempPath);
+                std::cout << "Enemy construction completed." << '\n';
                 levelEnemies->push_back(tempEnemy);
+                std::cout << "Enemy added to level vector." << '\n';
                 constructEnemy = false;
             }
             else if(line == "}" && constructEnemy == false && constructPath == false)
@@ -91,7 +92,7 @@ std::vector<Enemy*>* interpret(std::string levelName)
     else std::cout << "Unable to open level file";
 
     levelFile.close();
-    std::cout << levelEnemies->at(0)->getType() << '\n';
+    //std::cout << levelEnemies->at(0)->getType() << '\n';
     return levelEnemies;
 }
 
