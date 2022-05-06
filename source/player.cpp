@@ -5,7 +5,8 @@
 #include "headers\player.h"
 #include "headers\assets.h"
 
-const int INVULN_FRAMES = 30;
+const int INVULN_FRAMES = 240;
+const int INVULN_FRAME_FLASH = 8;
 
 Player::Player() {
     //constructor for player
@@ -15,6 +16,7 @@ Player::Player() {
     this->invulnTimer = INVULN_FRAMES;
     this->invulnTime = INVULN_FRAMES;
     this->hit = false;
+    this->draw = false;
     this->playerSprite->baseSprite->setScale(0.5, 0.5);
 }
 
@@ -57,8 +59,17 @@ bool Player::isInvuln() {
 
 void Player::makeInvuln() {
     this->invulnTimer = 0;
+    this->draw = false;
 }
 
 void Player::invulnTick() {
     if (this->invulnTimer != this->invulnTime) this->invulnTimer++;
+    if (this->invulnTimer % INVULN_FRAME_FLASH == 0) {
+        if (this->draw) this->draw = false;
+        else this->draw = true;
+    }
+}
+
+int Player::getTime() {
+    return this->invulnTimer;
 }

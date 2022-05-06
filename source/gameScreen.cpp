@@ -14,7 +14,6 @@
 const bool DISPLAY_HITBOX = true;
 const float SCROLL_SPEED = 0.05;
 const bool WILL_SCROLL = true;
-const int INVULN_FRAME_FLASH = 2;
 const int START_X = 40;
 const int START_Y = 76;
 
@@ -42,10 +41,18 @@ void gameScreen::draw(sf::RenderWindow* window) {
     for (int i = 0; i < this->enemies->size();i++) {
         if (this->enemies->at(i)->active) window->draw(*this->enemies->at(i)->sprite->baseSprite);
     }
+
     for (int i = 0;i < this->bullets->size();i++) {
         window->draw(*this->bullets->at(i)->bulletSprite);
     }
-    window->draw(*this->player->playerSprite->baseSprite);
+
+    if (this->player->isInvuln()) {
+        if (this->player->draw) {
+            window->draw(*this->player->playerSprite->baseSprite);
+        }
+    } else {
+        window->draw(*this->player->playerSprite->baseSprite);
+    }
 
     //draw the hitboxes if in hitbox mode
     if (DISPLAY_HITBOX) {
@@ -193,20 +200,22 @@ void gameScreen::moveBullets() {
 
 void gameScreen::checkCollision() {
     //checks for collision between objects
-    sf::Vector2f playerPos(this->player->playerSprite->baseSprite->getPosition());
-    int pRadius = this->player->playerSprite->baseSprite->getLocalBounds().width / 4;
-    playerPos.x = playerPos.x + pRadius;
-    playerPos.y = playerPos.y + pRadius;
+    if (this->player->isInvuln() == false) {
+        sf::Vector2f playerPos(this->player->playerSprite->baseSprite->getPosition());
+        int pRadius = this->player->playerSprite->baseSprite->getLocalBounds().width / 4;
+        playerPos.x = playerPos.x + pRadius;
+        playerPos.y = playerPos.y + pRadius;
 
-    this->isCollide = false;
-    for (int i = 0;i < this->bullets->size();i++) {
-        sf::Vector2f bulletPos(this->bullets->at(i)->bulletSprite->getPosition());
-        int bRadius = this->bullets->at(i)->bulletSprite->getLocalBounds().width / 2;
-        bulletPos.x = bulletPos.x + (this->bullets->at(i)->bulletSprite->getLocalBounds().width / 2);
-        bulletPos.y = bulletPos.y + (this->bullets->at(i)->bulletSprite->getLocalBounds().height / 2);
-        if (this->doesCollide(playerPos, pRadius, bulletPos, bRadius)) {
-            this->playerCollide();
-            this->isCollide = true;
+        this->isCollide = false;
+        for (int i = 0;i < this->bullets->size();i++) {
+            sf::Vector2f bulletPos(this->bullets->at(i)->bulletSprite->getPosition());
+            int bRadius = this->bullets->at(i)->bulletSprite->getLocalBounds().width / 2;
+            bulletPos.x = bulletPos.x + (this->bullets->at(i)->bulletSprite->getLocalBounds().width / 2);
+            bulletPos.y = bulletPos.y + (this->bullets->at(i)->bulletSprite->getLocalBounds().height / 2);
+            if (this->doesCollide(playerPos, pRadius, bulletPos, bRadius)) {
+                this->playerCollide();
+                this->isCollide = true;
+            }
         }
     }
 }
