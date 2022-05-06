@@ -27,7 +27,7 @@ screenType gameScreen::run(sf::RenderWindow* window) {
     moveBullets();
     checkCollision();
     generateBullets();
-    return game;
+    return screenManage(window);
 }
 
 void gameScreen::draw(sf::RenderWindow* window) {
@@ -232,6 +232,7 @@ bool gameScreen::doesCollide(const sf::Vector2f& playerPos, int playerRadius, co
 void gameScreen::playerCollide() {
     //Called when player sprite intersects with a bullet sprite
     this->player->hit = true;
+    gameData::lives--;
 }
 
 void gameScreen::generateBullets() {
@@ -246,4 +247,14 @@ void gameScreen::generateBullets() {
             }
         }
     }
+}
+
+screenType gameScreen::screenManage(sf::RenderWindow* window) {
+    //returns screenType the game should remain focused on. Game by default, and other screens when they have been properly flagged
+    if (gameData::lives < 0) {
+        gameData::lives = 4;
+        window->setView(window->getDefaultView());
+        return title;
+    }
+    else return game;
 }
