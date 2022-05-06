@@ -19,6 +19,7 @@ class gameScreen : public baseScreen {
     bool isScroll;
     void processInput(sf::RenderWindow*);
     void moveView(sf::RenderWindow*);
+    void manageActive();
     void moveBackground();
     void moveEnemies();
     void moveBullets();

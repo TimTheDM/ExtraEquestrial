@@ -13,12 +13,13 @@
 
 const bool DISPLAY_HITBOX = true;
 const float SCROLL_SPEED = 0.05;
-const bool WILL_SCROLL = false;
+const bool WILL_SCROLL = true;
 
 screenType gameScreen::run(sf::RenderWindow* window) {
     //runs a single game loop of the game screen
     processInput(window);
     moveView(window);
+    manageActive();
     movePlayer();
     moveEnemies();
     moveBullets();
@@ -36,7 +37,7 @@ void gameScreen::draw(sf::RenderWindow* window) {
 
     //Draw all enemies, bullets, and the player
     for (int i = 0; i < this->enemies->size();i++) {
-        window->draw(*this->enemies->at(i)->sprite->baseSprite);
+        if (this->enemies->at(i)->active) window->draw(*this->enemies->at(i)->sprite->baseSprite);
     }
     for (int i = 0;i < this->bullets->size();i++) {
         window->draw(*this->bullets->at(i)->bulletSprite);
@@ -78,7 +79,7 @@ gameScreen::gameScreen() {
     this->bullets = new std::vector<Bullet*>;
     std::vector<Path*>* testPath = new std::vector<Path*>;
     testPath->push_back((new Path(-1, 0.0, 0.03)));
-    this->enemies->push_back((new Enemy(200, 100, "test", testPath)));
+    this->enemies->push_back((new Enemy(500, 100, "test", testPath)));
     this->player = new Player();
     this->background = new sf::Sprite(assets::stageBackground);
     this->gameView = new sf::View(sf::Vector2f(gameData::screenWidth / 2, gameData::screenLength / 2), sf::Vector2f(gameData::screenWidth, gameData::screenLength));
@@ -111,11 +112,31 @@ void gameScreen::moveView(sf::RenderWindow* window) {
     if (this->isScroll) this->gameView->move(SCROLL_SPEED, 0);
 }
 
+void gameScreen::manageActive() {
+    //function that activates and deactives enemies depending on where the view is
+    float widthMiddle = this->gameView->getCenter().x;
+    float halfScreenWidth = gameData::screenWidth / 2;
+
+    for (int i = 0;i < this->enemies->size();i++) {
+        float enemyXPos = this->enemies->at(i)->sprite->baseSprite->getPosition().x;
+        int enemyWidth = this->enemies->at(i)->sprite->baseSprite->getLocalBounds().width;
+        if (this->enemies->at(i)->active && (enemyXPos + enemyWidth) < (widthMiddle - halfScreenWidth)) {
+            std::cout << "Set deActive\n";
+            this->enemies->at(i)->active = false;
+        } else if (this->enemies->at(i)->active == false && enemyXPos < (widthMiddle + halfScreenWidth) && (enemyXPos - enemyWidth) > (widthMiddle - halfScreenWidth)) {
+            std::cout << "Set Active\n";
+            this->enemies->at(i)->active = true;
+        }
+    }
+}
+
 void gameScreen::moveEnemies() {
     //moves enemies
     for (int i = 0;i < this->enemies->size();i++) {
-        this->enemies->at(i)->moveEnemy();
-        this->enemies->at(i)->pathTick();
+        if (this->enemies->at(i)->active) {
+            this->enemies->at(i)->moveEnemy();
+            this->enemies->at(i)->pathTick();
+        }
     }
 }
 
@@ -188,11 +209,13 @@ void gameScreen::playerCollide() {
 void gameScreen::generateBullets() {
     //checks if any enemies need to generate bullets, resets their bullet timers
     for (int i = 0;i < this->enemies->size();i++) {
-        if (this->enemies->at(i)->readyToFire()) {
-            this->bullets->push_back(this->enemies->at(i)->generateBullet());
-            this->enemies->at(i)->resetBullet();
-        } else {
-            this->enemies->at(i)->incrementBullet();
+        if (this->enemies->at(i)->active) {
+            if (this->enemies->at(i)->readyToFire()) {
+                this->bullets->push_back(this->enemies->at(i)->generateBullet());
+                this->enemies->at(i)->resetBullet();
+            } else {
+                this->enemies->at(i)->incrementBullet();
+            }
         }
     }
 }
