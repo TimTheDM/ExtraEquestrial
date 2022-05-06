@@ -48,3 +48,16 @@ void Player::joystickShift() {
         this->y_offset = 0;
     }
 }
+
+bool Player::isInvuln() {
+    if (this->invulnTimer < this->invulnTime) return true;
+    else return false;
+}
+
+void Player::makeInvuln() {
+    this->invulnTimer = 0;
+}
+
+void Player::invulnTick() {
+    if (this->invulnTimer != this->invulnTime) this->invulnTimer++;
+}

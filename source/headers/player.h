@@ -12,6 +12,9 @@ class Player {
     int invulnTime;
 public:
     SpriteSheet* playerSprite;
+    bool isInvuln();
+    void makeInvuln();
+    void invulnTick();
     void movePlayer();
     void joystickShift();
     float x_offset;
