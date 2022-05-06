@@ -12,6 +12,7 @@ class Player {
     int invulnTime;
 public:
     SpriteSheet* playerSprite;
+    bool hit;
     bool isInvuln();
     void makeInvuln();
     void invulnTick();

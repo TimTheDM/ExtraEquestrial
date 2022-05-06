@@ -14,6 +14,7 @@ Player::Player() {
     this->y_offset = 0;
     this->invulnTimer = INVULN_FRAMES;
     this->invulnTime = INVULN_FRAMES;
+    this->hit = false;
     this->playerSprite->baseSprite->setScale(0.5, 0.5);
 }
 

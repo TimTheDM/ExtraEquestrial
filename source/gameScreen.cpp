@@ -15,6 +15,8 @@ const bool DISPLAY_HITBOX = true;
 const float SCROLL_SPEED = 0.05;
 const bool WILL_SCROLL = true;
 const int INVULN_FRAME_FLASH = 2;
+const int START_X = 40;
+const int START_Y = 76;
 
 screenType gameScreen::run(sf::RenderWindow* window) {
     //runs a single game loop of the game screen
@@ -119,6 +121,13 @@ void gameScreen::managePlayer() {
     if (this->player->isInvuln()) {
         this->player->invulnTick();
     }
+    if (this->player->hit) {
+        //logic for when player is struck
+        std::cout << "I'm hit!";
+        this->player->makeInvuln();
+        this->player->playerSprite->baseSprite->setPosition(START_X + this->gameView->getCenter().x - (gameData::screenWidth / 2), START_Y);
+        this->player->hit = false;
+    }
 }
 
 void gameScreen::manageActive() {
@@ -213,6 +222,7 @@ bool gameScreen::doesCollide(const sf::Vector2f& playerPos, int playerRadius, co
 
 void gameScreen::playerCollide() {
     //Called when player sprite intersects with a bullet sprite
+    this->player->hit = true;
 }
 
 void gameScreen::generateBullets() {
