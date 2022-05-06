@@ -13,6 +13,10 @@ Bullet::Bullet(float xpos, float ypos, const std::string& type, Path* bPath) {
         this->bulletSprite = new sf::Sprite(assets::testBullet);
         this->speed = 0.05;
         this->bulletSprite->move(xpos, ypos);
+    } else if (type == "player") {
+        this->bulletSprite = new sf::Sprite(assets::playerBullet);
+        this->speed = 2.0;
+        this->bulletSprite->move(xpos, ypos);
     }
 }
 
