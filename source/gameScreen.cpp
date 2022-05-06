@@ -116,6 +116,9 @@ void gameScreen::moveView(sf::RenderWindow* window) {
 void gameScreen::managePlayer() {
     //function for managing players movement, bullets, and invuln state
     movePlayer();
+    if (this->player->isInvuln()) {
+        this->player->invulnTick();
+    }
 }
 
 void gameScreen::manageActive() {
