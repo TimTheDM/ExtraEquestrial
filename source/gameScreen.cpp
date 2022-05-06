@@ -14,13 +14,14 @@
 const bool DISPLAY_HITBOX = true;
 const float SCROLL_SPEED = 0.05;
 const bool WILL_SCROLL = true;
+const int INVULN_FRAME_FLASH = 2;
 
 screenType gameScreen::run(sf::RenderWindow* window) {
     //runs a single game loop of the game screen
     processInput(window);
     moveView(window);
     manageActive();
-    movePlayer();
+    managePlayer();
     moveEnemies();
     moveBullets();
     checkCollision();
@@ -79,7 +80,7 @@ gameScreen::gameScreen() {
     this->bullets = new std::vector<Bullet*>;
     std::vector<Path*>* testPath = new std::vector<Path*>;
     testPath->push_back((new Path(-1, 0.0, 0.03)));
-    this->enemies->push_back((new Enemy(500, 100, "test", testPath)));
+    this->enemies->push_back((new Enemy(300, 100, "test", testPath)));
     this->player = new Player();
     this->background = new sf::Sprite(assets::stageBackground);
     this->gameView = new sf::View(sf::Vector2f(gameData::screenWidth / 2, gameData::screenLength / 2), sf::Vector2f(gameData::screenWidth, gameData::screenLength));
@@ -110,6 +111,11 @@ void gameScreen::moveView(sf::RenderWindow* window) {
     //moves view by SCROLL_SPEED every game tick
     window->setView(*this->gameView);
     if (this->isScroll) this->gameView->move(SCROLL_SPEED, 0);
+}
+
+void gameScreen::managePlayer() {
+    //function for managing players movement, bullets, and invuln state
+    movePlayer();
 }
 
 void gameScreen::manageActive() {
