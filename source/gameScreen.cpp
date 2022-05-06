@@ -37,7 +37,7 @@ void gameScreen::draw(sf::RenderWindow* window) {
 
     //Draw all enemies, bullets, and the player
     for (int i = 0; i < this->enemies->size();i++) {
-        window->draw(*this->enemies->at(i)->sprite->baseSprite);
+        if (this->enemies->at(i)->active) window->draw(*this->enemies->at(i)->sprite->baseSprite);
     }
     for (int i = 0;i < this->bullets->size();i++) {
         window->draw(*this->bullets->at(i)->bulletSprite);
@@ -133,8 +133,10 @@ void gameScreen::manageActive() {
 void gameScreen::moveEnemies() {
     //moves enemies
     for (int i = 0;i < this->enemies->size();i++) {
-        this->enemies->at(i)->moveEnemy();
-        this->enemies->at(i)->pathTick();
+        if (this->enemies->at(i)->active) {
+            this->enemies->at(i)->moveEnemy();
+            this->enemies->at(i)->pathTick();
+        }
     }
 }
 
@@ -207,11 +209,13 @@ void gameScreen::playerCollide() {
 void gameScreen::generateBullets() {
     //checks if any enemies need to generate bullets, resets their bullet timers
     for (int i = 0;i < this->enemies->size();i++) {
-        if (this->enemies->at(i)->readyToFire()) {
-            this->bullets->push_back(this->enemies->at(i)->generateBullet());
-            this->enemies->at(i)->resetBullet();
-        } else {
-            this->enemies->at(i)->incrementBullet();
+        if (this->enemies->at(i)->active) {
+            if (this->enemies->at(i)->readyToFire()) {
+                this->bullets->push_back(this->enemies->at(i)->generateBullet());
+                this->enemies->at(i)->resetBullet();
+            } else {
+                this->enemies->at(i)->incrementBullet();
+            }
         }
     }
 }
