@@ -32,6 +32,7 @@ std::vector<Enemy*>* interpret(std::string levelName)
             if(line == "enemy=")
             {
                 std::cout << "Enemy creation initiated." << '\n';
+                constructEnemy = true;
             }
             if(line.substr(0,5) == "type=")
             {
@@ -48,6 +49,7 @@ std::vector<Enemy*>* interpret(std::string levelName)
             if(line == "path=")
             {
                  std::cout << "Path creation initiated." << '\n';
+                 constructPath = true;
             }
             if(line.substr(0,6) == "timer=")
             {
@@ -69,12 +71,14 @@ std::vector<Enemy*>* interpret(std::string levelName)
             {
                 std::cout << "Path construction completed." << '\n';
                 tempPath->push_back(new Path(tempTimer, tempAngle, tempMutation));
+                constructPath = false;
             }
             else if(line == "}" && constructEnemy == true && constructPath == false)
             {
                 std::cout << "Enemy construction completed." << '\n';
                 tempEnemy = new Enemy(tempXpos, tempYpos, tempType, tempPath);
                 levelEnemies->push_back(tempEnemy);
+                constructEnemy = false;
             }
             else if(line == "}" && constructEnemy == false && constructPath == false)
             {
@@ -87,6 +91,7 @@ std::vector<Enemy*>* interpret(std::string levelName)
     else std::cout << "Unable to open level file";
 
     levelFile.close();
+    std::cout << levelEnemies->at(0)->getType() << '\n';
     return levelEnemies;
 }
 
