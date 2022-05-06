@@ -114,6 +114,10 @@ void gameScreen::processInput(sf::RenderWindow* window) {
         if (event.type == sf::Event::Closed) gameData::endProgram = true;
     }
 
+    if (sf::Joystick::isButtonPressed(0, 2)) {
+        this->player->shoot();
+    }
+
     this->player->joystickShift();
 }
 
@@ -129,6 +133,7 @@ void gameScreen::managePlayer() {
     
     if (this->player->readyMakeBullet()) {
         this->pBullets->push_back(this->player->makeBullet());
+        std::cout << "Bang!";
     } else {
         this->player->bulletCooldown();
     }
