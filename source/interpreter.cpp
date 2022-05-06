@@ -19,9 +19,9 @@ std::vector<Enemy*>* interpret(std::string levelName)
     int tempTimer;
     float tempAngle;
     float tempMutation;
-    std::vector<Path*>* tempPath;
+    std::vector<Path*>* tempPath = new std::vector<Path*>;
     Enemy* tempEnemy;
-    std::vector<Enemy*>* levelEnemies;
+    std::vector<Enemy*>* levelEnemies = new std::vector<Enemy*>;
     std::ifstream levelFile(levelName);
     if(levelFile.is_open())
     {
