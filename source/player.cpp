@@ -4,9 +4,12 @@
 #include "headers\SpriteSheet.h"
 #include "headers\player.h"
 #include "headers\assets.h"
+#include "headers\Bullet.h"
+#include "headers\path.h"
 
 const int INVULN_FRAMES = 240;
 const int INVULN_FRAME_FLASH = 8;
+const int TICKS_BETWEEN_SHOTS = 60;
 
 Player::Player() {
     //constructor for player
@@ -15,8 +18,11 @@ Player::Player() {
     this->y_offset = 0;
     this->invulnTimer = INVULN_FRAMES;
     this->invulnTime = INVULN_FRAMES;
+    this->bulletTime = TICKS_BETWEEN_SHOTS;
+    this->bulletTimer = TICKS_BETWEEN_SHOTS;
     this->hit = false;
     this->draw = false;
+    this->isMakeBullet = false;
     this->playerSprite->baseSprite->setScale(0.5, 0.5);
 }
 
@@ -72,4 +78,22 @@ void Player::invulnTick() {
 
 int Player::getTime() {
     return this->invulnTimer;
+}
+
+bool Player::readyMakeBullet() {
+    return this->isMakeBullet;
+}
+
+void Player::shoot() {
+    if (this->bulletTimer == this->bulletTime) this->isMakeBullet = true;
+}
+
+void Player::bulletCooldown() {
+    if (this->bulletTimer < this->bulletTime) this->bulletTimer++;
+}
+
+Bullet* Player::makeBullet() {
+    this->isMakeBullet = false;
+    sf::Vector2f playerPos = this->playerSprite->baseSprite->getPosition();
+    return new Bullet(playerPos.x, playerPos.y, "player", new Path(-2, 0.0, 0.0));
 }
