@@ -258,7 +258,7 @@ void gameScreen::checkCollision() {
                 if (this->doesCollide(enemyPos, eRadius, bulletPos, bRadius)) {
                     //enemy bullet collision stuff
                     std::cout << "YEOUCH!\n";
-                    this->bulletCollideEnemy(i2);
+                    this->bulletCollideEnemy(i);
                 }
             }
         }
