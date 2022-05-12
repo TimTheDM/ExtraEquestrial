@@ -22,13 +22,13 @@ screenType gameScreen::run(sf::RenderWindow* window) {
     //runs a single game loop of the game screen
     processInput(window);
     moveView(window);
+    manageEvents();
     manageActive();
     managePlayer();
     moveEnemies();
     moveBullets();
     checkCollision();
     generateBullets();
-    manageEvents();
     return screenManage(window);
 }
 
@@ -61,7 +61,10 @@ void gameScreen::draw(sf::RenderWindow* window) {
     }
 
     for (int i = 0;i < this->events->size();i++) {
-        if (events->at(i)->isActive() && events->at(i)->getType() == animation) window->draw(*events->at(i)->animationSheet->baseSprite);
+        if (events->at(i)->isActive() && events->at(i)->getType() == animation) {
+            window->draw(*events->at(i)->animationSheet->baseSprite);
+            std::cout << "Explosion drawn";
+        }
     }
 
     //draw the hitboxes if in hitbox mode
@@ -300,6 +303,8 @@ void gameScreen::bulletCollideEnemy(int index) {
     //Called when a players bullet intersects with an enemy. index of position of enemy to be deactivated
     this->enemies->at(index)->active = false;
     this->enemies->at(index)->defeated = true;
+    sf::FloatRect enemyPos = enemies->at(index)->sprite->baseSprite->getGlobalBounds();
+    events->push_back(new Event(animation, assets::explosionSprite, 90, 17, enemyPos.left - enemyPos.width, enemyPos.top - enemyPos.height));
 }
 
 void gameScreen::generateBullets() {

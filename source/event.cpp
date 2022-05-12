@@ -10,6 +10,7 @@ Event::Event(eventType type, const sf::Texture& texture, int time, int offset, f
     if (type == animation) {
         animationSheet = new SpriteSheet(texture, offset, time / offset);
         animationSheet->baseSprite->setPosition(xpos, ypos);
+        animationSheet->baseSprite->setScale(0.5, 0.5);
     }
 }
 
