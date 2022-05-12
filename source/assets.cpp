@@ -1,5 +1,8 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
+#include <iostream>
+#include <fstream>
+#include <experimental/filesystem>
 
 #include "headers\assets.h"
 
@@ -16,6 +19,7 @@ sf::Texture assets::playerBullet;
 sf::Texture assets::explosionSprite;
 
 bool assets::loadAssets() {
+    namespace fs = std::experimental::filesystem;
     bool assetsLoaded = true;
     if (!assets::titleBackground.loadFromFile("sprites/Title_Background.png")) assetsLoaded = false;
     if (!assets::stageBackground.loadFromFile("sprites/Stage_Background.png")) assetsLoaded = false;
@@ -28,5 +32,19 @@ bool assets::loadAssets() {
     if (!assets::cursor.loadFromFile("sprites/cursor.png")) assetsLoaded = false;
     if (!assets::testEnemy.loadFromFile("sprites/test_enemy.png")) assetsLoaded = false;
     if (!assets::titleMusic.openFromFile("music/Main_Menu.flac")) assetsLoaded = false;
+
+    std::string path = "sprites";
+    std::fstream guh;
+    for (const auto& entry : std::experimental::filesystem::directory_iterator(path)) {
+        std::string fileName;
+        std::stringstream huh;
+        huh << entry.path();
+        fileName = huh.str();
+    }
+
     return assetsLoaded;
+}
+
+assetContainer::assetContainer(const std::string& fileName) {
+    this->fileName = new std::string(fileName);
 }

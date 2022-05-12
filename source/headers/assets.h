@@ -3,6 +3,9 @@
 
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
+#include <vector>
+#include <iostream>
+#include <experimental/filesystem>
 
 struct assets {
     //container storing textures and music for use in the screens
@@ -18,6 +21,14 @@ struct assets {
     static sf::Music titleMusic;
     static sf::Texture explosionSprite;
     static bool loadAssets();
+};
+
+struct assetContainer {
+    sf::Texture* texture;
+    sf::Music* music;
+    const std::string* fileName;
+    bool isLoaded;
+    assetContainer(const std::string&);
 };
 
 #endif //ASSETS_H
