@@ -16,6 +16,7 @@ struct assets {
     static sf::Texture cursor;
     static sf::Texture testEnemy;
     static sf::Music titleMusic;
+    static sf::Texture explosionSprite;
     static bool loadAssets();
 };
 

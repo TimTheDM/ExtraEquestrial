@@ -10,6 +10,7 @@
 #include "headers\Enemy.h"
 #include "headers\player.h"
 #include "headers\bullet.h"
+#include "headers\event.h"
 
 const bool DISPLAY_HITBOX = true;
 const float SCROLL_SPEED = 0.05;
@@ -21,6 +22,7 @@ screenType gameScreen::run(sf::RenderWindow* window) {
     //runs a single game loop of the game screen
     processInput(window);
     moveView(window);
+    manageEvents();
     manageActive();
     managePlayer();
     moveEnemies();
@@ -58,6 +60,13 @@ void gameScreen::draw(sf::RenderWindow* window) {
         window->draw(*this->player->playerSprite->baseSprite);
     }
 
+    for (int i = 0;i < this->events->size();i++) {
+        if (events->at(i)->isActive() && events->at(i)->getType() == animation) {
+            window->draw(*events->at(i)->animationSheet->baseSprite);
+            std::cout << "Explosion drawn";
+        }
+    }
+
     //draw the hitboxes if in hitbox mode
     if (DISPLAY_HITBOX) {
         sf::CircleShape hitbox;
@@ -92,6 +101,7 @@ gameScreen::gameScreen() {
     this->enemies = new std::vector<Enemy*>; //to be replaced by function calling level of enemies from gameData
     this->bullets = new std::vector<Bullet*>;
     this->pBullets = new std::vector<Bullet*>;
+    this->events = new std::vector<Event*>;
     std::vector<Path*>* testPath = new std::vector<Path*>;
     testPath->push_back((new Path(-1, 0.0, 0.03)));
     this->enemies->push_back((new Enemy(300, 100, "test", testPath)));
@@ -169,6 +179,15 @@ void gameScreen::manageActive() {
         } else if (this->enemies->at(i)->active == false && enemyXPos < (widthMiddle + halfScreenWidth) && (enemyXPos - enemyWidth) > (widthMiddle - halfScreenWidth) && this->enemies->at(i)->defeated == false) {
             std::cout << "Set Active\n";
             this->enemies->at(i)->active = true;
+        }
+    }
+}
+
+void gameScreen::manageEvents() {
+    //function that manages the vector of events
+    for (int i = 0;i < events->size();i++) {
+        if (events->at(i)->isActive()) {
+            events->at(i)->tick();
         }
     }
 }
@@ -258,7 +277,7 @@ void gameScreen::checkCollision() {
                 if (this->doesCollide(enemyPos, eRadius, bulletPos, bRadius)) {
                     //enemy bullet collision stuff
                     std::cout << "YEOUCH!\n";
-                    this->bulletCollideEnemy(i2);
+                    this->bulletCollideEnemy(i);
                 }
             }
         }
@@ -284,6 +303,8 @@ void gameScreen::bulletCollideEnemy(int index) {
     //Called when a players bullet intersects with an enemy. index of position of enemy to be deactivated
     this->enemies->at(index)->active = false;
     this->enemies->at(index)->defeated = true;
+    sf::FloatRect enemyPos = enemies->at(index)->sprite->baseSprite->getGlobalBounds();
+    events->push_back(new Event(animation, assets::explosionSprite, 90, 17, enemyPos.left - enemyPos.width, enemyPos.top - enemyPos.height));
 }
 
 void gameScreen::generateBullets() {

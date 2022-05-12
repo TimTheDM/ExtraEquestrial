@@ -13,6 +13,7 @@ sf::Texture assets::testEnemy;
 sf::Texture assets::stageBackground;
 sf::Texture assets::testBullet;
 sf::Texture assets::playerBullet;
+sf::Texture assets::explosionSprite;
 
 bool assets::loadAssets() {
     bool assetsLoaded = true;
@@ -20,6 +21,7 @@ bool assets::loadAssets() {
     if (!assets::stageBackground.loadFromFile("sprites/Stage_Background.png")) assetsLoaded = false;
     if (!assets::playSymbol.loadFromFile("sprites/Play_Symbol.png")) assetsLoaded = false;
     if (!assets::exitSymbol.loadFromFile("sprites/Exit_Symbol.png")) assetsLoaded = false;
+    if (!assets::explosionSprite.loadFromFile("sprites/Explosion_Sprite.png")) assetsLoaded = false;
     if (!assets::playerSprite.loadFromFile("sprites/Player_Sheet.png")) assetsLoaded = false;
     if (!assets::testBullet.loadFromFile("sprites/Test_Bullet.png")) assetsLoaded = false;
     if (!assets::playerBullet.loadFromFile("sprites/Player_Bullet.png")) assetsLoaded = false;
