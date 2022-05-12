@@ -17,3 +17,19 @@ Event::~Event() {
         delete animationSheet;
     }
 }
+
+bool Event::isActive() {
+    if (timer == time) return false;
+    else return true;
+}
+
+void Event::tick() {
+    if (timer != time) {
+        timer++;
+        animationSheet->nextPos();
+    }
+}
+
+void Event::disable() {
+    timer = time;
+}
