@@ -8,9 +8,11 @@
 #include "Enemy.h"
 #include "player.h"
 #include "bullet.h"
+#include "event.h"
 
 class gameScreen : public baseScreen {
     std::vector<Enemy*>* enemies;
+    std::vector<Event*>* events;
     sf::Sprite* background;
     sf::View* gameView;
     std::vector<Bullet*>* bullets;

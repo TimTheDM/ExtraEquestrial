@@ -10,6 +10,7 @@
 #include "headers\Enemy.h"
 #include "headers\player.h"
 #include "headers\bullet.h"
+#include "headers\event.h"
 
 const bool DISPLAY_HITBOX = true;
 const float SCROLL_SPEED = 0.05;
@@ -92,6 +93,7 @@ gameScreen::gameScreen() {
     this->enemies = new std::vector<Enemy*>; //to be replaced by function calling level of enemies from gameData
     this->bullets = new std::vector<Bullet*>;
     this->pBullets = new std::vector<Bullet*>;
+    this->events = new std::vector<Event*>;
     std::vector<Path*>* testPath = new std::vector<Path*>;
     testPath->push_back((new Path(-1, 0.0, 0.03)));
     this->enemies->push_back((new Enemy(300, 100, "test", testPath)));
