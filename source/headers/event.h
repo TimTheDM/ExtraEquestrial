@@ -13,6 +13,7 @@ class Event {
 public:
     SpriteSheet* animationSheet;
     bool isActive();
+    eventType getType();
     void tick();
     void disable();
     Event(eventType type, int time, int offset, const sf::Texture& texture);

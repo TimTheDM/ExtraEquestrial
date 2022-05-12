@@ -61,7 +61,7 @@ void gameScreen::draw(sf::RenderWindow* window) {
     }
 
     for (int i = 0;i < this->events->size();i++) {
-        if (events->at(i)->isActive()) window->draw(*events->at(i)->animationSheet->baseSprite);
+        if (events->at(i)->isActive() && events->at(i)->getType() == animation) window->draw(*events->at(i)->animationSheet->baseSprite);
     }
 
     //draw the hitboxes if in hitbox mode

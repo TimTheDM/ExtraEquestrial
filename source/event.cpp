@@ -23,6 +23,10 @@ bool Event::isActive() {
     else return true;
 }
 
+eventType Event::getType() {
+    return type;
+}
+
 void Event::tick() {
     if (timer != time) {
         timer++;
