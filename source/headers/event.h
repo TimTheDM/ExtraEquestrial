@@ -15,7 +15,7 @@ public:
     bool isActive();
     void tick();
     void disable();
-    Event(eventType type, int time);
+    Event(eventType type, int time, int offset, const sf::Texture& texture);
     ~Event();
 }
 
