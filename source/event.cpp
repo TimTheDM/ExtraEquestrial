@@ -2,13 +2,14 @@
 #include "headers\spriteSheet.h"
 #include "headers\event.h"
 
-Event::Event(eventType type, int time, int offset, const sf::Texture& texture) {
+Event::Event(eventType type, const sf::Texture& texture, int time, int offset, float xpos, float ypos) {
     this->time = time;
     timer = 0;
     this->type = type;
 
     if (type == animation) {
         animationSheet = new SpriteSheet(texture, offset, time / offset);
+        animationSheet->baseSprite->setPosition(xpos, ypos);
     }
 }
 

@@ -16,7 +16,7 @@ public:
     eventType getType();
     void tick();
     void disable();
-    Event(eventType type, int time, int offset, const sf::Texture& texture);
+    Event(eventType type, const sf::Texture& texture, int time, int offset, float xpos, float ypos);
     ~Event();
 };
 
