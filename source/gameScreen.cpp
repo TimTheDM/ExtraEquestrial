@@ -28,6 +28,7 @@ screenType gameScreen::run(sf::RenderWindow* window) {
     moveBullets();
     checkCollision();
     generateBullets();
+    manageEvents();
     return screenManage(window);
 }
 
@@ -171,6 +172,15 @@ void gameScreen::manageActive() {
         } else if (this->enemies->at(i)->active == false && enemyXPos < (widthMiddle + halfScreenWidth) && (enemyXPos - enemyWidth) > (widthMiddle - halfScreenWidth) && this->enemies->at(i)->defeated == false) {
             std::cout << "Set Active\n";
             this->enemies->at(i)->active = true;
+        }
+    }
+}
+
+void gameScreen::manageEvents() {
+    //function that manages the vector of events
+    for (int i = 0;i < events->size();i++) {
+        if (events->at(i)->isActive()) {
+            events->at(i)->tick();
         }
     }
 }

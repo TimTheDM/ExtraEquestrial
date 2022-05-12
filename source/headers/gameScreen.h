@@ -23,6 +23,7 @@ class gameScreen : public baseScreen {
     void processInput(sf::RenderWindow*);
     void moveView(sf::RenderWindow*);
     screenType screenManage(sf::RenderWindow*);
+    void manageEvents();
     void managePlayer();
     void manageActive();
     void moveBackground();
