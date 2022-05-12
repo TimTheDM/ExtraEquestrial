@@ -60,6 +60,10 @@ void gameScreen::draw(sf::RenderWindow* window) {
         window->draw(*this->player->playerSprite->baseSprite);
     }
 
+    for (int i = 0;i < this->events->size();i++) {
+        if (events->at(i)->isActive()) window->draw(*events->at(i)->animationSheet->baseSprite);
+    }
+
     //draw the hitboxes if in hitbox mode
     if (DISPLAY_HITBOX) {
         sf::CircleShape hitbox;
