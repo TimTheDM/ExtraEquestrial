@@ -3,7 +3,6 @@
 #include <iostream>
 #include <fstream>
 #include <experimental/filesystem>
-
 #include "headers\assets.h"
 
 sf::Texture assets::titleBackground;
@@ -37,6 +36,7 @@ bool assets::loadAssets() {
     if (!assets::titleMusic.openFromFile("music/Main_Menu.flac")) assetsLoaded = false;
 
     assetsLoaded = addAssets("sprites");
+    assetsLoaded = addAssets("music");
 
     return assetsLoaded;
 }
@@ -49,8 +49,29 @@ bool assets::addAssets(const std::string& assetPath) {
         fileName = buffer.str();
         assetList->push_back(new assetContainer(fileName));
     }
+
+    return true;
 }
 
 assetContainer::assetContainer(const std::string& fileName) {
     this->fileName = new std::string(fileName);
+    std::string extension = findExtension(fileName);
+
+    if (extension == "png") {
+        texture = new sf::Texture();
+        texture->loadFromFile(fileName);
+        isLoaded = true;
+        type = image;
+    } else if (extension == "flac") {
+        song = new sf::Music;
+        song->openFromFile(fileName);
+        isLoaded = true;
+        type = music;
+    } else {
+        isLoaded = false;
+    }
+}
+
+std::string findExtension(const std::string& fileName) {
+    return "";
 }

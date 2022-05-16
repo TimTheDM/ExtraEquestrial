@@ -13,7 +13,7 @@ std::string findExtension(const std::string& fileName);
 
 struct assetContainer {
     sf::Texture* texture;
-    sf::Music* music;
+    sf::Music* song;
     assetType type;
     const std::string* fileName;
     bool isLoaded;
