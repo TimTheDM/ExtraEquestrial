@@ -7,6 +7,14 @@
 #include <iostream>
 #include <experimental/filesystem>
 
+struct assetContainer {
+    sf::Texture* texture;
+    sf::Music* music;
+    const std::string* fileName;
+    bool isLoaded;
+    assetContainer(const std::string&);
+};
+
 struct assets {
     //container storing textures and music for use in the screens
     static sf::Texture titleBackground;
@@ -20,15 +28,8 @@ struct assets {
     static sf::Texture testEnemy;
     static sf::Music titleMusic;
     static sf::Texture explosionSprite;
+    static std::vector<assetContainer*>* assetList;
     static bool loadAssets();
-};
-
-struct assetContainer {
-    sf::Texture* texture;
-    sf::Music* music;
-    const std::string* fileName;
-    bool isLoaded;
-    assetContainer(const std::string&);
 };
 
 #endif //ASSETS_H

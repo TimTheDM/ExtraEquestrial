@@ -34,12 +34,13 @@ bool assets::loadAssets() {
     if (!assets::titleMusic.openFromFile("music/Main_Menu.flac")) assetsLoaded = false;
 
     std::string path = "sprites";
-    std::fstream guh;
+    
     for (const auto& entry : std::experimental::filesystem::directory_iterator(path)) {
         std::string fileName;
-        std::stringstream huh;
-        huh << entry.path();
-        fileName = huh.str();
+        std::stringstream buffer;
+        buffer << entry.path();
+        fileName = buffer.str();
+        std::cout << fileName << '\n';
     }
 
     return assetsLoaded;
