@@ -46,7 +46,8 @@ bool assets::addAssets(const std::string& assetPath) {
         std::string fileName;
         std::stringstream buffer;
         buffer << entry.path();
-        fileName = buffer.str();
+        fileName = formatPath(buffer.str());
+        std::cout << fileName << '\n';
         assetList->push_back(new assetContainer(fileName));
     }
 
@@ -74,4 +75,22 @@ assetContainer::assetContainer(const std::string& fileName) {
 
 std::string findExtension(const std::string& fileName) {
     return "";
+}
+
+std::string formatPath(const std::string& path) {
+    std::string fPath = "";
+    bool formatSwitch = false;
+
+    for (int i = 0;i < path.size();i++) {
+        if (path[i] == '\\') {
+            if (!formatSwitch) {
+                formatSwitch = true;
+                fPath += '/';
+            }
+        } else {
+            fPath += path[i];
+        }
+    }
+
+    return fPath;
 }

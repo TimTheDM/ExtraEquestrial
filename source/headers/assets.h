@@ -10,6 +10,7 @@
 enum assetType {image, music};
 
 std::string findExtension(const std::string& fileName);
+std::string formatPath(const std::string& path);
 
 struct assetContainer {
     sf::Texture* texture;
