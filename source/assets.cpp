@@ -53,6 +53,18 @@ bool assets::addAssets(const std::string& assetPath) {
     return true;
 }
 
+assetContainer* assets::findAsset(const std::string& assetName) {
+    assetContainer* asset;
+
+    for (int i = 0;i < assetList->size();i++) {
+        if (*assetList->at(i)->fileName == assetName) {
+            asset = assetList->at(i);
+        }
+    }
+
+    return asset;
+}
+
 assetContainer::assetContainer(const std::string& fileName) {
     this->fileName = new std::string(fileName);
     std::string extension = findExtension(fileName);

@@ -37,6 +37,7 @@ struct assets {
     static std::vector<assetContainer*>* assetList;
     static bool loadAssets();
     static bool addAssets(const std::string& assetPath);
+    static assetContainer* findAsset(const std::string& assetName);
 };
 
 #endif //ASSETS_H
