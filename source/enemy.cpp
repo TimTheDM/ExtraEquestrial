@@ -19,7 +19,7 @@ Enemy::Enemy(int xpos, int ypos, const std::string& type, std::vector<Path*>* pa
     if (type == "test") {
         this->speed = 0.5;
         this->rateOfFire = 1500;
-        this->sprite = new SpriteSheet(assets::testEnemy, 1, 1);
+        this->sprite = new SpriteSheet(*assets::findAsset("test_enemy.png")->texture, 1, 1);
     }
     this->sprite->baseSprite->move(xpos, ypos);
 }

@@ -41,11 +41,11 @@ void TitleScreen::draw(sf::RenderWindow* window) {
 
 TitleScreen::TitleScreen() {
     //constructor for title screen object.
-    this->cursor = new sf::Sprite(assets::cursor);
-    this->play = new sf::Sprite(assets::playSymbol);
-    this->exit = new sf::Sprite(assets::exitSymbol);
-    this->titleTheme = &assets::titleMusic;
-    this->background = new SpriteSheet(assets::titleBackground, 8, 15);
+    this->cursor = new sf::Sprite(*assets::findAsset("Cursor.png")->texture);
+    this->play = new sf::Sprite(*assets::findAsset("Play_Symbol.png")->texture);
+    this->exit = new sf::Sprite(*assets::findAsset("Exit_Symbol.png")->texture);
+    this->titleTheme = assets::findAsset("Main_Menu.flac")->song;
+    this->background = new SpriteSheet(*assets::findAsset("Title_Background.png")->texture, 8, 15);
     this->cursorPos = 0;
     this->titleTheme->setLoop(true);
     this->titleTheme->play();

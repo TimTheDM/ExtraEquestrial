@@ -13,7 +13,7 @@ const int TICKS_BETWEEN_SHOTS = 60;
 
 Player::Player() {
     //constructor for player
-    this->playerSprite = new SpriteSheet(assets::playerSprite, 5, 15);
+    this->playerSprite = new SpriteSheet(*assets::findAsset("Player_Sheet.png")->texture, 5, 15);
     this->x_offset = 0;
     this->y_offset = 0;
     this->invulnTimer = INVULN_FRAMES;

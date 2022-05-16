@@ -10,11 +10,11 @@ Bullet::Bullet(float xpos, float ypos, const std::string& type, Path* bPath) {
     this->isActive = true;
     //will change when more types are implemented
     if (type == "test") {
-        this->bulletSprite = new sf::Sprite(assets::testBullet);
+        this->bulletSprite = new sf::Sprite(*assets::findAsset("Test_Bullet.png")->texture);
         this->speed = 0.05;
         this->bulletSprite->move(xpos, ypos);
     } else if (type == "player") {
-        this->bulletSprite = new sf::Sprite(assets::playerBullet);
+        this->bulletSprite = new sf::Sprite(*assets::findAsset("Player_Bullet.png")->texture);
         this->speed = 2.0;
         this->bulletSprite->move(xpos, ypos);
     }
