@@ -8,6 +8,6 @@
 #include "Path.h"
 #include "enemy.h"
 
-Enemy interpret(std::string levelName);
+std::vector<Enemy*>* interpret(std::string levelName);
 
 #endif // INTERPRET_H
