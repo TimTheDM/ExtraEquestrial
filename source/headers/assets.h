@@ -7,9 +7,14 @@
 #include <iostream>
 #include <experimental/filesystem>
 
+enum assetType {image, music};
+
+std::string findExtension(const std::string& fileName);
+
 struct assetContainer {
     sf::Texture* texture;
     sf::Music* music;
+    assetType type;
     const std::string* fileName;
     bool isLoaded;
     assetContainer(const std::string&);
@@ -30,6 +35,7 @@ struct assets {
     static sf::Texture explosionSprite;
     static std::vector<assetContainer*>* assetList;
     static bool loadAssets();
+    static bool addAssets(const std::string& assetPath);
 };
 
 #endif //ASSETS_H

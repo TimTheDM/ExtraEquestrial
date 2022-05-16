@@ -17,9 +17,12 @@ sf::Texture assets::stageBackground;
 sf::Texture assets::testBullet;
 sf::Texture assets::playerBullet;
 sf::Texture assets::explosionSprite;
+std::vector<assetContainer*>* assets::assetList;
 
 bool assets::loadAssets() {
     namespace fs = std::experimental::filesystem;
+    assetList = new std::vector<assetContainer*>;
+
     bool assetsLoaded = true;
     if (!assets::titleBackground.loadFromFile("sprites/Title_Background.png")) assetsLoaded = false;
     if (!assets::stageBackground.loadFromFile("sprites/Stage_Background.png")) assetsLoaded = false;
@@ -33,17 +36,19 @@ bool assets::loadAssets() {
     if (!assets::testEnemy.loadFromFile("sprites/test_enemy.png")) assetsLoaded = false;
     if (!assets::titleMusic.openFromFile("music/Main_Menu.flac")) assetsLoaded = false;
 
-    std::string path = "sprites";
-    
-    for (const auto& entry : std::experimental::filesystem::directory_iterator(path)) {
+    assetsLoaded = addAssets("sprites");
+
+    return assetsLoaded;
+}
+
+bool assets::addAssets(const std::string& assetPath) {
+    for (const auto& entry : std::experimental::filesystem::directory_iterator(assetPath)) {
         std::string fileName;
         std::stringstream buffer;
         buffer << entry.path();
         fileName = buffer.str();
-        std::cout << fileName << '\n';
+        assetList->push_back(new assetContainer(fileName));
     }
-
-    return assetsLoaded;
 }
 
 assetContainer::assetContainer(const std::string& fileName) {
