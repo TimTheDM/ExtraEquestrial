@@ -63,7 +63,6 @@ void gameScreen::draw(sf::RenderWindow* window) {
     for (int i = 0;i < this->events->size();i++) {
         if (events->at(i)->isActive() && events->at(i)->getType() == animation) {
             window->draw(*events->at(i)->animationSheet->baseSprite);
-            std::cout << "Explosion drawn";
         }
     }
 
@@ -77,8 +76,8 @@ void gameScreen::draw(sf::RenderWindow* window) {
         hitbox.setFillColor(sf::Color(5, 5, 5, 150));
         window->draw(hitbox);
         if (this->isCollide) {
-            sf::Sprite collideConfirm(assets::testEnemy);
-            window->draw(collideConfirm);
+            //sf::Sprite collideConfirm(assets::testEnemy);
+            //window->draw(collideConfirm);
         }
 
         for (int i = 0;i < this->bullets->size();i++) {
@@ -106,7 +105,7 @@ gameScreen::gameScreen() {
     testPath->push_back((new Path(-1, 0.0, 0.03)));
     this->enemies->push_back((new Enemy(300, 100, "test", testPath)));
     this->player = new Player();
-    this->background = new sf::Sprite(assets::stageBackground);
+    this->background = new sf::Sprite(*assets::findAsset("Stage_Background.png")->texture);
     this->gameView = new sf::View(sf::Vector2f(gameData::screenWidth / 2, gameData::screenLength / 2), sf::Vector2f(gameData::screenWidth, gameData::screenLength));
     this->isScroll = WILL_SCROLL;
 }
@@ -304,7 +303,7 @@ void gameScreen::bulletCollideEnemy(int index) {
     this->enemies->at(index)->active = false;
     this->enemies->at(index)->defeated = true;
     sf::FloatRect enemyPos = enemies->at(index)->sprite->baseSprite->getGlobalBounds();
-    events->push_back(new Event(animation, assets::explosionSprite, 90, 17, enemyPos.left - enemyPos.width, enemyPos.top - enemyPos.height));
+    events->push_back(new Event(animation, *assets::findAsset("Explosion_Sprite.png")->texture, 90, 17, enemyPos.left - enemyPos.width, enemyPos.top - enemyPos.height));
 }
 
 void gameScreen::generateBullets() {
