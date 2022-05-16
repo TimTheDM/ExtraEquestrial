@@ -66,7 +66,7 @@ assetContainer* assets::findAsset(const std::string& assetName) {
 }
 
 assetContainer::assetContainer(const std::string& fileName) {
-    this->fileName = new std::string(fileName);
+    this->fileName = new std::string(formatAssetName(fileName));
     std::string extension = findExtension(fileName);
 
     if (extension == "png") {
@@ -115,4 +115,19 @@ std::string formatPath(const std::string& path) {
     }
 
     return fPath;
+}
+
+std::string formatAssetName(const std::string& fileName) {
+    std::string formattedName = "";
+    bool copy = false;
+
+    for (int i = 0;i < fileName.size();i++) {
+        if (fileName[i] == '/') {
+            copy = true;
+        } else if (copy) {
+            formattedName += fileName[i];
+        }
+    }
+
+    return formattedName;
 }
