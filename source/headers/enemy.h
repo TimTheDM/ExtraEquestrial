@@ -25,6 +25,7 @@ public:
     bool readyToFire();
     void moveEnemy();
     void pathTick();
+    std::string getType();//Delete this
 };
 
 #endif //ENEMY_H

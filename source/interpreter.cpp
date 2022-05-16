@@ -92,7 +92,6 @@ std::vector<Enemy*>* interpret(std::string levelName)
     else std::cout << "Unable to open level file";
 
     levelFile.close();
-    //std::cout << levelEnemies->at(0)->getType() << '\n';
     return levelEnemies;
 }
 
