@@ -64,6 +64,6 @@ Bullet* Enemy::generateBullet() {
     //returns bullet
     sf::Rect<float> position = this->sprite->baseSprite->getGlobalBounds();
     Path* defaultPath = new Path(-2, 3.14159, 0.0);
-    Bullet* placeholder = new Bullet(position.left, position.top + position.height, "test", defaultPath);
+    Bullet* placeholder = new Bullet(position.left, position.top + position.height, 0.2 ,"test", defaultPath);
     return placeholder;
 }
