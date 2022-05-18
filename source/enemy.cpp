@@ -9,6 +9,9 @@
 const float TEST_SPEED = 0.5;
 const int TEST_RATE_OF_FIRE = 1500;
 const std::string TEST_SPRITESHEET = "test_enemy.png";
+const std::string TEST_BULLET_TYPE = "";
+const float TEST_BULLET_SPEED = 0.5;
+const bool TEST_AIM = true;
 
 Enemy::Enemy(int xpos, int ypos, const std::string& type, std::vector<Path*>* path) {
     //constructor for enemy type, will use above data to populate enemy object
@@ -20,14 +23,15 @@ Enemy::Enemy(int xpos, int ypos, const std::string& type, std::vector<Path*>* pa
     this->active = false;
     this->defeated = false;
 
-    if (type == "test") {
-        this->speed = 0.5;
-        this->rateOfFire = 1500;
-        this->sprite = new SpriteSheet(*assets::findAsset("test_enemy.png")->texture, 1, 1);
+    if (type == "placeholder") {
+        //Placeholder for when more typess beyond the default get implemented
     } else {
         this->speed = TEST_SPEED;
         this->rateOfFire = TEST_RATE_OF_FIRE;
         this->sprite = new SpriteSheet(*assets::findAsset(TEST_SPRITESHEET)->texture, 1, 1);
+        bulletData.speed = TEST_BULLET_SPEED;
+        bulletData.type = TEST_BULLET_TYPE;
+        bulletData.aim = TEST_AIM;
     }
     this->sprite->baseSprite->move(xpos, ypos);
 }
@@ -60,7 +64,7 @@ bool Enemy::readyToFire() {
     return (this->ticksSinceFire >= this->rateOfFire);
 }
 
-Bullet* Enemy::generateBullet() {
+Bullet* Enemy::generateBullet(sf::Vector2f playerPos) {
     //returns bullet
     sf::Rect<float> position = this->sprite->baseSprite->getGlobalBounds();
     Path* defaultPath = new Path(-2, 3.14159, 0.0);

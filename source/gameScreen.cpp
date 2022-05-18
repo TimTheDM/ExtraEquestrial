@@ -311,7 +311,7 @@ void gameScreen::generateBullets() {
     for (int i = 0;i < this->enemies->size();i++) {
         if (this->enemies->at(i)->active) {
             if (this->enemies->at(i)->readyToFire()) {
-                this->bullets->push_back(this->enemies->at(i)->generateBullet());
+                this->bullets->push_back(this->enemies->at(i)->generateBullet(player->playerSprite->baseSprite->getPosition()));
                 this->enemies->at(i)->resetBullet();
             } else {
                 this->enemies->at(i)->incrementBullet();

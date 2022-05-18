@@ -10,6 +10,7 @@
 struct bulletBlueprint {
     float speed;
     bool aim;
+    std::string type;
 };
 
 class Enemy {
@@ -27,7 +28,7 @@ public:
     SpriteSheet* sprite;
     Enemy(int, int, const std::string&, std::vector<Path*>*);
     ~Enemy();
-    Bullet* generateBullet();
+    Bullet* generateBullet(sf::Vector2f playerPos);
     void resetBullet();
     void incrementBullet();
     bool readyToFire();
