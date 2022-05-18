@@ -6,6 +6,10 @@
 #include "headers\assets.h"
 #include "headers\bullet.h"
 
+const float TEST_SPEED = 0.5;
+const int TEST_RATE_OF_FIRE = 1500;
+const std::string TEST_SPRITESHEET = "test_enemy.png";
+
 Enemy::Enemy(int xpos, int ypos, const std::string& type, std::vector<Path*>* path) {
     //constructor for enemy type, will use above data to populate enemy object
     this->path = path;
@@ -15,11 +19,15 @@ Enemy::Enemy(int xpos, int ypos, const std::string& type, std::vector<Path*>* pa
     this->ticksSinceFire = 0;
     this->active = false;
     this->defeated = false;
-    //placeholder, when more types exist, they will have their data stored in enemy.h
+
     if (type == "test") {
         this->speed = 0.5;
         this->rateOfFire = 1500;
         this->sprite = new SpriteSheet(*assets::findAsset("test_enemy.png")->texture, 1, 1);
+    } else {
+        this->speed = TEST_SPEED;
+        this->rateOfFire = TEST_RATE_OF_FIRE;
+        this->sprite = new SpriteSheet(*assets::findAsset(TEST_SPRITESHEET)->texture, 1, 1);
     }
     this->sprite->baseSprite->move(xpos, ypos);
 }
