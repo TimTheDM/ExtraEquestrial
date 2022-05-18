@@ -1,5 +1,6 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include <math.h>
 #include "headers\Path.h"
 #include "headers\Enemy.h"
 #include "headers\SpriteSheet.h"
@@ -7,7 +8,7 @@
 #include "headers\bullet.h"
 
 const float TEST_SPEED = 0.5;
-const int TEST_RATE_OF_FIRE = 1500;
+const int TEST_RATE_OF_FIRE = 500;
 const std::string TEST_SPRITESHEET = "test_enemy.png";
 const std::string TEST_BULLET_TYPE = "";
 const float TEST_BULLET_SPEED = 0.5;
@@ -67,7 +68,18 @@ bool Enemy::readyToFire() {
 Bullet* Enemy::generateBullet(sf::Vector2f playerPos) {
     //returns bullet
     sf::Rect<float> position = this->sprite->baseSprite->getGlobalBounds();
-    Path* defaultPath = new Path(-2, 3.14159, 0.0);
-    Bullet* placeholder = new Bullet(position.left, position.top + position.height, 0.2 ,"test", defaultPath);
+    Bullet* placeholder;
+    playerPos.x += 12.5;
+    playerPos.y += 12.5;
+
+    if (bulletData.aim) {
+        float angle = atan2((position.top - playerPos.y), -(position.left - playerPos.x));
+        Path* aimPath = new Path(-2, angle, 0.0);
+        placeholder = new Bullet(position.left, position.top + position.height, bulletData.speed, bulletData.type, aimPath);
+    } else {
+        Path* defaultPath = new Path(-2, 3.14159, 0.0);
+        placeholder = new Bullet(position.left, position.top + position.height, bulletData.speed, bulletData.type, defaultPath);
+    }
+
     return placeholder;
 }
