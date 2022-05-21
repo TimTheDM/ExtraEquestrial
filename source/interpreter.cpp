@@ -77,6 +77,7 @@ std::vector<Enemy*>* interpret(std::string levelName)
             else if(line == "}" && constructEnemy == true && constructPath == false)
             {
                 tempEnemy = new Enemy(tempXpos, tempYpos, tempType, tempPath);
+                tempPath = new std::vector<Path*>;
                 std::cout << "Enemy construction completed." << '\n';
                 levelEnemies->push_back(tempEnemy);
                 std::cout << "Enemy added to level vector." << '\n';
