@@ -34,6 +34,7 @@ class gameScreen : public baseScreen {
     void playerCollide();
     void bulletCollideEnemy(int);
     void generateBullets();
+    void drawBackground(sf::RenderWindow*);
     bool doesCollide(const sf::Vector2f&, int, const sf::Vector2f&, int);
 public:
     screenType run(sf::RenderWindow*);
