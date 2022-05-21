@@ -11,6 +11,7 @@
 #include "headers\player.h"
 #include "headers\bullet.h"
 #include "headers\event.h"
+#include "headers\interpreter.h"
 
 const bool DISPLAY_HITBOX = true;
 const float SCROLL_SPEED = 0.05;
@@ -97,13 +98,10 @@ void gameScreen::draw(sf::RenderWindow* window) {
 
 gameScreen::gameScreen() {
     //constructor for game screen object.
-    this->enemies = new std::vector<Enemy*>; //to be replaced by function calling level of enemies from gameData
+    this->enemies = interpret(std::string("levels\\") + "level" + std::to_string(gameData::level) + ".lvl");
     this->bullets = new std::vector<Bullet*>;
     this->pBullets = new std::vector<Bullet*>;
     this->events = new std::vector<Event*>;
-    std::vector<Path*>* testPath = new std::vector<Path*>;
-    testPath->push_back((new Path(-1, 0.0, 0.03)));
-    this->enemies->push_back((new Enemy(300, 100, "test", testPath)));
     this->player = new Player();
     this->background = new sf::Sprite(*assets::findAsset("Stage_Background.png")->texture);
     this->gameView = new sf::View(sf::Vector2f(gameData::screenWidth / 2, gameData::screenLength / 2), sf::Vector2f(gameData::screenWidth, gameData::screenLength));
