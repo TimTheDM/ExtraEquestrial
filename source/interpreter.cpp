@@ -7,7 +7,8 @@
 #include "headers\interpreter.h"
 
 std::string filterSpace(std::string line);
-//test
+float extractFloat(const std::string& line, int index);
+
 std::vector<Enemy*>* interpret(std::string levelName)
 {
     bool constructEnemy = false;
@@ -43,8 +44,8 @@ std::vector<Enemy*>* interpret(std::string levelName)
             if(line.substr(0,9) == "position=")
             {
                  std::cout << "Position initialized to " << line[9] << ',' << line[11] << '\n';
-                 tempXpos = line[9];
-                 tempYpos = line[11];
+                 tempXpos = extractFloat(line, 9);
+                 tempYpos = extractFloat(line, line.find(",") + 1);
             }
             if(line == "path=")
             {
@@ -109,4 +110,30 @@ std::string filterSpace(std::string line)
     }
 
     return spaceFreeStr;
+}
+
+float extractFloat(const std::string& line, int index) 
+{
+    //extracts float starting from index of line. Stops when it encounters a non-number, or non point
+    std::string floatStr = "";
+
+    for (int i = index;i < line.size();i++) 
+    {
+        if (line[i] != 46 && (line[i] < 48 || line[i] > 57)) 
+        {
+            break;
+        }
+        else 
+        {
+            floatStr += line[i];
+        }
+    }
+
+    if (floatStr == "")
+    {
+        return 0;
+    }
+    else {
+        return std::stod(floatStr);
+    }
 }
