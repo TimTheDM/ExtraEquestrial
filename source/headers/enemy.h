@@ -7,10 +7,17 @@
 #include "SpriteSheet.h"
 #include "bullet.h"
 
+struct bulletBlueprint {
+    float speed;
+    bool aim;
+    std::string type;
+};
+
 class Enemy {
     //class that stores data for an enemy object
     std::vector<Path*>* path;
     std::string type;
+    bulletBlueprint bulletData;
     float speed;
     int pathIndex;
     int rateOfFire;
@@ -21,7 +28,7 @@ public:
     SpriteSheet* sprite;
     Enemy(int, int, const std::string&, std::vector<Path*>*);
     ~Enemy();
-    Bullet* generateBullet();
+    Bullet* generateBullet(sf::Vector2f playerPos);
     void resetBullet();
     void incrementBullet();
     bool readyToFire();

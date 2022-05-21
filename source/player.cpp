@@ -10,6 +10,7 @@
 const int INVULN_FRAMES = 240;
 const int INVULN_FRAME_FLASH = 8;
 const int TICKS_BETWEEN_SHOTS = 60;
+const float PLAYER_BULLET_SPEED = 1.0;
 
 Player::Player() {
     //constructor for player
@@ -96,5 +97,5 @@ Bullet* Player::makeBullet() {
     this->isMakeBullet = false;
     this->bulletTimer = 0;
     sf::FloatRect playerPos = this->playerSprite->baseSprite->getGlobalBounds();
-    return new Bullet(playerPos.left + playerPos.width-5, playerPos.top + (playerPos.height / 2)-3, "player", new Path(-2, 0.0, 0.0));
+    return new Bullet(playerPos.left + playerPos.width-5, playerPos.top + (playerPos.height / 2)-3, PLAYER_BULLET_SPEED ,"player", new Path(-2, 0.0, 0.0));
 }

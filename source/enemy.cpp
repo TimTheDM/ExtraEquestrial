@@ -1,10 +1,18 @@
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include <math.h>
 #include "headers\Path.h"
 #include "headers\Enemy.h"
 #include "headers\SpriteSheet.h"
 #include "headers\assets.h"
 #include "headers\bullet.h"
+
+const float TEST_SPEED = 0.5;
+const int TEST_RATE_OF_FIRE = 500;
+const std::string TEST_SPRITESHEET = "test_enemy.png";
+const std::string TEST_BULLET_TYPE = "";
+const float TEST_BULLET_SPEED = 0.5;
+const bool TEST_AIM = true;
 
 Enemy::Enemy(int xpos, int ypos, const std::string& type, std::vector<Path*>* path) {
     //constructor for enemy type, will use above data to populate enemy object
@@ -15,11 +23,16 @@ Enemy::Enemy(int xpos, int ypos, const std::string& type, std::vector<Path*>* pa
     this->ticksSinceFire = 0;
     this->active = false;
     this->defeated = false;
-    //placeholder, when more types exist, they will have their data stored in enemy.h
-    if (type == "test") {
-        this->speed = 0.5;
-        this->rateOfFire = 1500;
-        this->sprite = new SpriteSheet(*assets::findAsset("test_enemy.png")->texture, 1, 1);
+
+    if (type == "placeholder") {
+        //Placeholder for when more typess beyond the default get implemented
+    } else {
+        this->speed = TEST_SPEED;
+        this->rateOfFire = TEST_RATE_OF_FIRE;
+        this->sprite = new SpriteSheet(*assets::findAsset(TEST_SPRITESHEET)->texture, 1, 1);
+        bulletData.speed = TEST_BULLET_SPEED;
+        bulletData.type = TEST_BULLET_TYPE;
+        bulletData.aim = TEST_AIM;
     }
     this->sprite->baseSprite->move(xpos, ypos);
 }
@@ -52,10 +65,21 @@ bool Enemy::readyToFire() {
     return (this->ticksSinceFire >= this->rateOfFire);
 }
 
-Bullet* Enemy::generateBullet() {
+Bullet* Enemy::generateBullet(sf::Vector2f playerPos) {
     //returns bullet
     sf::Rect<float> position = this->sprite->baseSprite->getGlobalBounds();
-    Path* defaultPath = new Path(-2, 3.14159, 0.0);
-    Bullet* placeholder = new Bullet(position.left, position.top + position.height, "test", defaultPath);
+    Bullet* placeholder;
+    playerPos.x += 12.5;
+    playerPos.y += 12.5;
+
+    if (bulletData.aim) {
+        float angle = atan2((position.top - playerPos.y), -(position.left - playerPos.x));
+        Path* aimPath = new Path(-2, angle, 0.0);
+        placeholder = new Bullet(position.left, position.top + position.height, bulletData.speed, bulletData.type, aimPath);
+    } else {
+        Path* defaultPath = new Path(-2, 3.14159, 0.0);
+        placeholder = new Bullet(position.left, position.top + position.height, bulletData.speed, bulletData.type, defaultPath);
+    }
+
     return placeholder;
 }
