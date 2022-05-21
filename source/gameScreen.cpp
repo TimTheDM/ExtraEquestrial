@@ -38,7 +38,7 @@ void gameScreen::draw(sf::RenderWindow* window) {
     window->clear();
 
     //Draw the background
-    window->draw(*this->background);
+    drawBackground(window);
 
     //Draw all enemies, bullets, and the player
     for (int i = 0; i < this->enemies->size();i++) {
@@ -94,6 +94,14 @@ void gameScreen::draw(sf::RenderWindow* window) {
     //update spriteSheet animations
     this->player->playerSprite->nextPos();
     window->display();
+}
+
+void gameScreen::drawBackground(sf::RenderWindow* window) {
+    //draws the background
+    background->setPosition((gameData::screenWidth * ((static_cast<int>(gameView->getCenter().x) - (gameData::screenWidth / 2)) / gameData::screenWidth)) , 0);
+    window->draw(*background);
+    background->move(gameData::screenWidth, 0);
+    window->draw(*background);
 }
 
 gameScreen::gameScreen() {
